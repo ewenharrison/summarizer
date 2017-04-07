@@ -1,11 +1,10 @@
 Package: summarizer
 Type: Package
-Title: Summary functions and easily exportable tables for frontline R users 
-Version: 0.1.0
+Title: Summarizer
+Version: 0.1.1
 Author: Harrison, Drake, Ots
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Summary functions and easily exportable tables for frontline R users.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
