@@ -83,25 +83,21 @@ summary.factorlist5 <- function(df, dependent, explanatory, p=FALSE, na.include=
 	df.labels = data.frame(".id" = names(s$stats), "label" = s$labels)
 	df.out.labels = merge(df.out, df.labels, by = ".id")
 	if (orderbytotal==FALSE){
-		df.out.labels = df.out.labels[order(df.out.labels$index),-1] # reorder columns and drop .id
+		df.out.labels = df.out.labels[order(df.out.labels$index),] # reorder columns
 	} else {
-		df.out.labels = df.out.labels[order(-df.out.labels$index_total),-1] # reorder columns and drop .id
+		df.out.labels = df.out.labels[order(-df.out.labels$index_total),] # reorder columns
 	}
-	len = length(df.out.labels)
-	df.out.labels = df.out.labels[,c((len), 1:(len-1))]
-	return(df.out.labels)
-}
 
-# Remove duplicate levels from summary.factorlist object 14112016 ----
-rm_duplicate_labels = function(summary.factorlist.output, na.to.missing = FALSE){
-	x = summary.factorlist.output
-	duplicate_rows = duplicated(x$label)
-	x$label = as.character(x$label)
-	x$label[duplicate_rows] = ""
-	x$pvalue[duplicate_rows] = ""
-	if (na.to.missing == TRUE){
-		x$levels = as.character(x$levels)
-		x$levels[which(x$levels == "NA")] = "Missing"
-	}
-	return(x)
+	# Reorder columns and remove unnecessary columns
+	# Reorder
+	label_index = which(names(df.out.labels) == "label")
+	not_label_index = which(names(df.out.labels) != "label")
+	df.out.labels = df.out.labels[,c(label_index,not_label_index)]
+
+	# Remove
+	id_index = which(names(df.out.labels) == ".id")
+	index_index = which(names(df.out.labels) == "index")
+	index_total_index = which(names(df.out.labels) == "index_total")
+	df.out.labels = df.out.labels[,-c(id_index, index_index, index_total_index)]
+	return(df.out.labels)
 }
