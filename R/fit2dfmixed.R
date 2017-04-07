@@ -14,10 +14,12 @@ fit2df.mixed = function(model, condense=FALSE){
 	}
 	df.out=data.frame(df)
 	if (condense==TRUE){
+		p = paste0("=", sprintf("%.3f", df.out$p))
+		p[p == "=0.000"] = "<0.001"
 		df.out = data.frame(
 			"explanatory" = row.names(df.out),
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
-										sprintf("%.2f", df.out$U95), ", p=", sprintf("%.3f", df.out$p), ")"))
+										sprintf("%.2f", df.out$U95), ", p", p, ")"))
 	}
 	return(df.out)
 }
