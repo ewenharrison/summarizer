@@ -1,6 +1,6 @@
 # Function to pull numbers and percentages out of Hmisc summary.formula function-------------------------
 summary.factorlist <- function(df, dependent=dependent, explanatory=explanatory, p=FALSE, na.include=FALSE,
-															 column=FALSE, total_col=FALSE, orderbytotal=FALSE){
+															 column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE){
 	require(Hmisc)
 	require(plyr)
 	s <- summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
@@ -67,16 +67,26 @@ summary.factorlist <- function(df, dependent=dependent, explanatory=explanatory,
 		df.out.labels = df.out.labels[order(-df.out.labels$index_total),] # reorder columns
 	}
 
-	# Reorder columns and remove unnecessary columns
-	# Reorder
+	# Reorder columns
 	label_index = which(names(df.out.labels) == "label")
 	not_label_index = which(names(df.out.labels) != "label")
 	df.out.labels = df.out.labels[,c(label_index,not_label_index)]
 
+	# Add glm levels name
+	if (glm.id){
+		levels = as.character(df.out.labels$levels)
+		levels[levels == "Mean (SD)"] = ""
+		df.out.labels$glm.id = paste0(df.out.labels$.id, levels)
+	}
+
 	# Remove
+	if (glm.id == FALSE) {
+		index_index = which(names(df.out.labels) == "index")
+	}else{
+		index_index = 0
+	}
 	id_index = which(names(df.out.labels) == ".id")
-	index_index = which(names(df.out.labels) == "index")
 	index_total_index = which(names(df.out.labels) == "index_total")
-	df.out.labels = df.out.labels[,-c(id_index, index_index, index_total_index)]
+	df.out.labels = df.out.labels[,-c(id_index, index_total_index, index_index)]
 	return(df.out.labels)
 }
