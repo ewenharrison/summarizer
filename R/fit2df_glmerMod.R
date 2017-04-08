@@ -1,5 +1,5 @@
 # Wrapper for glmmixed
-fit2df.mixed = function(model, condense=FALSE){
+fit2df.glmerMod = function(model, condense=FALSE){
 	{
 		sum.lem=data.frame(summary(model)$coef)
 		sum.lem<-sum.lem[-which(rownames(sum.lem)=="(Intercept)"),]

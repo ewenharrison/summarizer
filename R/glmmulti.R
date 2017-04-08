@@ -7,5 +7,6 @@ glmmulti <- function(df.in, dependent, explanatory){
 		result[[i]] = glm(paste(dependent[i], "~", paste(explanatory, collapse="+")), data=df.in, family="binomial")
 	}
 	result = setNames(result, dependent)
+	class(result) = "glmlist"
 	return(result)
 }

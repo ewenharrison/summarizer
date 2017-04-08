@@ -10,5 +10,6 @@ glmmulti.boot <- function(df.in, dependent, explanatory, R=1000){
 	}
 	bs.out <- boot(data=df.in, statistic=ci,
 								 R=R, formula=formula)
+	class(bs.out) = "glmboot"
 	return(bs.out)
 }

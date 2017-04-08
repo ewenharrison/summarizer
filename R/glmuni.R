@@ -4,5 +4,6 @@ glmuni <- function(df.in, dependent, explanatory){
 	for (i in 1:length(explanatory)){
 		result[[i]] <- glm(paste(dependent, "~", explanatory[i]), data=df.in, family="binomial")
 	}
+	class(result) = "glmlist"
 	return(result)
 }

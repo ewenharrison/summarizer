@@ -1,5 +1,5 @@
 # Wrapper for glmmulti.boot which extracts CI from bootstrap. ---------------------------------------------
-fit2df.boot = function(boot_results, condense=FALSE){
+fit2df.glmboot = function(boot_results, condense=FALSE){
 	df.out = data.frame(OR=exp(boot_results$t0))
 	R = dim(boot_results$t)[1]
 	for (i in 1:dim(df.out)[1]){

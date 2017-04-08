@@ -4,19 +4,18 @@ summary.factorlist <- function(df, dependent, explanatory, p=FALSE, na.include=F
 	try(if(is.null(dependent)) stop("No dependent variable(s) provided"))
 	try(if(is.null(explanatory)) stop("No explanatory variable(s) provided"))
 
-	args = list(df, dependent, explanatory, p=FALSE, na.include=FALSE,
-							column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE)
+	args = list(df, dependent=dependent, explanatory=explanatory, p=p, na.include=na.include,
+							column=column, total_col=total_col, orderbytotal=orderbytotal, glm.id=glm.id)
 
-	if (length(levels(df[,names(df) %in% dependent])) == 2){
+	d.len = length(levels(df[,names(df) %in% dependent]))
+
+	if (d.len == 2){
 		do.call(summary.factorlist2, args)
-	}
-	if (length(levels(df[,names(df) %in% dependent])) == 3){
+	} else if (d.len == 3){
 		do.call(summary.factorlist3, args)
-	}
-	if (length(levels(df[,names(df) %in% dependent])) == 4){
+	} else if (d.len == 4){
 		do.call(summary.factorlist4, args)
-	}
-	if (length(levels(df[,names(df) %in% dependent])) == 5){
+	} else if (d.len == 5){
 		do.call(summary.factorlist5, args)
 	}
 }

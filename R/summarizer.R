@@ -19,7 +19,7 @@ summarizer = function(df, dependent=dependent, explanatory=explanatory, random_e
 			condense = TRUE
 		)
 	} else {
-		glmmixed.out = fit2df.mixed(
+		glmmixed.out = fit2df(
 			glmmixed(df, dependent, explanatory, random_effect),
 			condense = TRUE
 		)
