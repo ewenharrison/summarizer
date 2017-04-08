@@ -1,4 +1,4 @@
-summarizer = function(df, dependent=dependent, explanatory=explanatory, random_effect=NULL){
+summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random_effect=NULL){
 	# Summary table
 	summary.out = summary.factorlist(df, dependent, explanatory, p=FALSE, na.include=FALSE,
 																	 column=TRUE, total_col=FALSE, orderbytotal=FALSE, glm.id=TRUE)
@@ -14,10 +14,17 @@ summarizer = function(df, dependent=dependent, explanatory=explanatory, random_e
 
 	# Multivariable/Mixed
 	if (is.null(random_effect)){
+		if (is.null(explanatory.multi)){
 		glmmulti.out = fit2df(
 			glmmulti(df, dependent, explanatory),
 			condense = TRUE
 		)
+		} else {
+			glmmulti.out = fit2df(
+				glmmulti(df, dependent, explanatory.multi),
+				condense = TRUE
+			)
+		}
 	} else {
 		glmmixed.out = fit2df(
 			glmmixed(df, dependent, explanatory, random_effect),
