@@ -1,6 +1,6 @@
 # For 5 factor levels---------------------------------
 summary.factorlist5 <- function(df, dependent, explanatory, p=FALSE, na.include=FALSE,
-																column=FALSE, total_col=FALSE, orderbytotal=FALSE){
+																column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE){
 	require(Hmisc)
 	require(plyr)
 	s <- summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
