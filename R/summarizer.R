@@ -36,7 +36,7 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 	df.out = summarizer_merge(summary.out, glmuni.out)
 	names(df.out)[which(names(df.out)=="OR")] = "OR (univariable)"
 	if (is.null(random_effect)){
-		df.out = summarizer.merge(df.out, glmmulti.out)
+		df.out = summarizer_merge(df.out, glmmulti.out)
 		names(df.out)[which(names(df.out)=="OR")] = "OR (multivariable)"
 	} else {
 		df.out = summarizer_merge(df.out, glmmixed.out)
