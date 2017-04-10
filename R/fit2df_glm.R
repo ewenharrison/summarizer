@@ -1,10 +1,7 @@
-fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE){
-	if (metrics==TRUE && length(fit)>1){
-		stop("Metrics only generated for single models: multiple models supplied to function")
-	}
-
-	require(plyr)
-	df.out <- ldply(fit, function(x) {
+fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE){
+	require(pROC)
+	{
+		x = fit
 		explanatory = names(coef(x))
 		or = round(exp(coef(x)), 2)
 		ci = round(exp(confint(x)), 2)
@@ -15,12 +12,12 @@ fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE){
 			"L95" = ci[,1],
 			"U95" = ci[,2],
 			p = p)
-		return(df.out)
-	})
+	}
 
-	# Remove intercepts
+	# Remove intercept
 	df.out = df.out[-which(df.out$explanatory =="(Intercept)"),]
 
+	# Condensed output (now made default)
 	if (condense==TRUE){
 		p = paste0("=", sprintf("%.3f", df.out$p))
 		p[p == "=0.000"] = "<0.001"
@@ -32,7 +29,7 @@ fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE){
 
 	# Extract model metrics
 	if (metrics==TRUE){
-		x = fit[[1]]
+		x = fit
 		n_data = dim(x$data)[1]
 		n_model = dim(x$model)[1]
 		aic = round(x$aic, 1)
