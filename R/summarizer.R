@@ -48,7 +48,7 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 	df.out = df.out[,-c(index_glm.id, index_index)]
 
 	# Add metrics
-	if (metrics = TRUE){
+	if (metrics == TRUE){
 		return(list(df.out, glmmulti.out[[2]]))
 	} else {
 		return(df.out)
