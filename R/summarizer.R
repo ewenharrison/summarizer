@@ -26,14 +26,14 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 
 	# Merge dataframes
 	# Uni
-	df.out = summarizer_merge(summary.out, glmuni.out)
+	df.out = summarizer_merge(summary.out, glmuni.df)
 	names(df.out)[which(names(df.out)=="OR")] = "OR (univariable)"
 
 	# Multi
 	if (metrics == FALSE){
-		df.out = summarizer_merge(df.out, glmmulti.out)
+		df.out = summarizer_merge(df.out, glmmulti.df)
 	} else {
-		df.out = summarizer_merge(df.out, glmmulti.out[[1]])
+		df.out = summarizer_merge(df.out, glmmulti.df[[1]])
 	}
 
 	if (is.null(random_effect)){
@@ -49,7 +49,7 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 
 	# Add metrics
 	if (metrics == TRUE){
-		return(list(df.out, glmmulti.out[[2]]))
+		return(list(df.out, glmmulti.df[[2]]))
 	} else {
 		return(df.out)
 	}

@@ -1,5 +1,5 @@
 # Wrapper for glmmixed
-fit2df.glmerMod = function(model, condense=FALSE){
+fit2df.glmerMod = function(model, condense=TRUE, metrics=FALSE){
 	{
 		sum.lem=data.frame(summary(model)$coef)
 		sum.lem<-sum.lem[-which(rownames(sum.lem)=="(Intercept)"),]
@@ -21,5 +21,23 @@ fit2df.glmerMod = function(model, condense=FALSE){
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95), ", p", p, ")"))
 	}
-	return(df.out)
+	# Extract model metrics
+	if (metrics==TRUE){
+		x = model
+		n_model = length(x@resp$mu)
+		n_groups = summary(x)$ngrps
+		aic = round(summary(x)$AICtab[[1]], 1)
+		auc = round(roc(x@resp$y, x@resp$mu)$auc[1], 3)
+		metrics.out = paste0(
+			"Number in model = ", n_model,
+			", Number of groups = ", paste(n_groups, collapse="/"),
+			", AIC = ", aic,
+			", C-statistic = ", auc)
+	}
+
+	if (metrics==TRUE){
+		return(list(df.out, metrics.out))
+	} else {
+		return(df.out)
+	}
 }

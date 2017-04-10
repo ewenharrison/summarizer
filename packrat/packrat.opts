@@ -6,6 +6,7 @@ vcs.ignore.src: TRUE
 external.packages:
     plyr
     Hmisc
+    pROC
 local.repos: 
 load.external.packages.on.startup: TRUE
 ignored.packages: 

@@ -36,10 +36,10 @@ fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE){
 		auc = round(roc(x$y, x$fitted)$auc[1], 3)
 		metrics.out = paste0(
 			"Number in dataframe = ", n_data,
-			", number in model = ", n_model,
-			", missing = ", n_data-n_model,
+			", Number in model = ", n_model,
+			", Missing = ", n_data-n_model,
 			", AIC = ", aic,
-			", c-statistic = ", auc)
+			", C-statistic = ", auc)
 	}
 
 	if (metrics==TRUE){
