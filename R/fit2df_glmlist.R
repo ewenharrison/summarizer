@@ -2,6 +2,7 @@ fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE){
 	if (metrics==TRUE && length(fit)>1){
 		stop("Metrics only generated for single models: multiple models supplied to function")
 	}
+	require(pROC)
 
 	require(plyr)
 	df.out <- ldply(fit, function(x) {
