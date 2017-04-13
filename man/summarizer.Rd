@@ -12,8 +12,8 @@ A function that takes a single dependent variable with a vector of explanatory v
 \item{df}{Dataframe}
 \item{dependent}{Character vector of length 1:  name of depdendent variable}
 \item{explanatory}{Character vector of any length: name(s) of explanatory variables}
-\item{explanatory.multi}{Character vector of any length: name of subset of explanatory variables for multivariable analysis only (must only contain variables contained in explanatory)}
-\item{random_effect}{Character vector of length 1: name of random effects variable. When included mixed effects model generated (lme4::glmer)}
+\item{explanatory.multi}{Character vector of any length: name of subset of explanatory variables for multivariable analysis only (must only contain variables contained in \code{explanatory})}
+\item{random_effect}{Character vector of length 1: name of random effects variable. When included mixed effects model generated (\code{lme4::glmer})}
 \item{metrics}{Logical: include in output useful model metrics in publication format}
 }
 \examples{

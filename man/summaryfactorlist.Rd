@@ -14,12 +14,12 @@ A function that takes a single dependent variable with a vector of explanatory v
 \item{dependent}{Character vector of length 1:  name of depdendent variable (2 to 5 factor levels)}
 \item{explanatory}{Character vector of any length: name(s) of explanatory variables}
 \item{cont}{Summary for continuous variables: mean (standard deviation) or median (interquartile range)}
-\item{p}{Logical: Include statistical test (see Hmisc)}
-\item{na.include}{Logical: include missing data in summary (NAs)}
+\item{p}{Logical: Include statistical test (see\code{library(Hmisc)})}
+\item{na.include}{Logical: include missing data in summary (\code{NA})}
 \item{column}{Logical: Compute margins by column rather than row}
 \item{total_col}{Logical: include a total column summing across factor levels}
 \item{orderbytotal}{Logical: order final table by total column high to low}
-\item{glm.id}{Logical: not used directly, allows merging via summary.merge}
+\item{glm.id}{Logical: not used directly, allows merging via \code{summary.merge}
 }
 \examples{
 explanatory = c('ssi_yn.factor', 'ssi_yn.collapsed', 'abcess_yn.factor',
