@@ -2,11 +2,11 @@
 \alias{summarizer}
 \title{Summarize the analysis of a binary dependent variable}
 \usage{
-	summarizer(df, dependent, explanatory, explanatory.multi=NULL,
+summarizer(df, dependent, explanatory, explanatory.multi=NULL,
 	random_effect=NULL, metrics=FALSE)
 }
 \description{
-	A function that takes a single dependent variable with a vector of explanatory variable names (continuous or categorical variables) to produce a final table for publication including summary statistics, univariable and multivariable logistic regression analyses.
+A function that takes a single dependent variable with a vector of explanatory variable names (continuous or categorical variables) to produce a final table for publication including summary statistics, univariable and multivariable logistic regression analyses.
 }
 \arguments{
 \item{df}{Dataframe}
@@ -17,14 +17,14 @@
 \item{metrics}{Logical: include in output useful model metrics in publication format}
 }
 \examples{
-	explanatory = c('age_years', 'gender.factor', 'asa.2.1', 'immsupp.disease',
-		'immsupp.med', 'smoker.2', 'path.system.1', 'knife2skin.3groups',
-		'time2op.hours.factor', 'urgency.1', 'checklist.1', 'laparoscopic.1',
-		'abx_pr_ph.factor', 'contamination.3')
-	explanatory.multi = c('age_years', 'gender', 'asa.2.1', 'immsupp.disease',
-		'immsupp.med', 'smoker.2', 'path.system.1', 'knife2skin.3groups',
-		'urgency.1', 'checklist.1', 'laparoscopic.1',
-		'abx_pr_ph.factor', 'contamination.3')
-	dependent = "ssi_yn.collapsed"
-	summarizer.out = summarizer(data_gs2, dependent, explanatory, metrics=TRUE)
+explanatory = c('age_years', 'gender.factor', 'asa.2.1', 'immsupp.disease',
+	'immsupp.med', 'smoker.2', 'path.system.1', 'knife2skin.3groups',
+	'time2op.hours.factor', 'urgency.1', 'checklist.1', 'laparoscopic.1',
+	'abx_pr_ph.factor', 'contamination.3')
+explanatory.multi = c('age_years', 'gender', 'asa.2.1', 'immsupp.disease',
+	'immsupp.med', 'smoker.2', 'path.system.1', 'knife2skin.3groups',
+	'urgency.1', 'checklist.1', 'laparoscopic.1',
+	'abx_pr_ph.factor', 'contamination.3')
+dependent = "ssi_yn.collapsed"
+summarizer.out = summarizer(data_gs2, dependent, explanatory, metrics=TRUE)
 }
