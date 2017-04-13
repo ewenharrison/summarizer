@@ -1,4 +1,4 @@
-summary.factorlist3 <- function(df, dependent, explanatory, p=FALSE, na.include=FALSE,
+summary.factorlist3 <- function(df, dependent, explanatory, cont="mean", p=FALSE, na.include=FALSE,
 																column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE){
 	require(Hmisc)
 	require(plyr)
@@ -9,11 +9,22 @@ summary.factorlist3 <- function(df, dependent, explanatory, p=FALSE, na.include=
 	df.out = ldply(s$stats, function(x){
 		if(dim(x)[2] == 13){ #hack to get continuous vs categorical. Wouldn't work for factor with 13 levels
 			# Continuous variables
-			a = paste0(round(x[1,12], 1), " (", round(x[1,13], 1), ")")
-			b = paste0(round(x[2,12], 1), " (", round(x[2,13], 1), ")")
-			c = paste0(round(x[3,12], 1), " (", round(x[3,13], 1), ")")
-			row1_name = dimnames(x)[[2]][12]
-			row2_name = dimnames(x)[[2]][13]
+			# Mean (SD)
+			if (cont == "mean"){
+				a = paste0(round(x[1,12], 1), " (", round(x[1,13], 1), ")")
+				b = paste0(round(x[2,12], 1), " (", round(x[2,13], 1), ")")
+				c = paste0(round(x[3,12], 1), " (", round(x[3,13], 1), ")")
+				row1_name = dimnames(x)[[2]][12]
+				row2_name = dimnames(x)[[2]][13]}
+
+			# Median (IQR)
+			if (cont == "median"){
+				a = paste0(x[1,6], " (", x[1,8]-x[1,4], ")")
+				b = paste0(x[2,6], " (", x[2,8]-x[2,4], ")")
+				c = paste0(x[3,6], " (", x[3,8]-x[3,4], ")")
+				row1_name = "Median"
+				row2_name = "IQR"}
+
 			col1_name = dimnames(x)[[1]][1]
 			col2_name = dimnames(x)[[1]][2]
 			col3_name = dimnames(x)[[1]][3]

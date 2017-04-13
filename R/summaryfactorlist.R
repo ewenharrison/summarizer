@@ -1,4 +1,4 @@
-summary.factorlist <- function(df, dependent, explanatory, p=FALSE, na.include=FALSE,
+summary.factorlist <- function(df, dependent, explanatory, cont="mean", p=FALSE, na.include=FALSE,
 															 column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE){
 	try(if(is.data.frame(df)==FALSE) stop("df is not dataframe"))
 	try(if(is.null(dependent)) stop("No dependent variable(s) provided"))
