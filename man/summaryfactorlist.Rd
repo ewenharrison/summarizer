@@ -19,7 +19,7 @@ A function that takes a single dependent variable with a vector of explanatory v
 \item{column}{Logical: Compute margins by column rather than row}
 \item{total_col}{Logical: include a total column summing across factor levels}
 \item{orderbytotal}{Logical: order final table by total column high to low}
-\item{glm.id}{Logical: not used directly, allows merging via \code{summary.merge}
+\item{glm.id}{Logical: not used directly, allows merging via \code{summary.merge}}
 }
 \examples{
 explanatory = c('ssi_yn.factor', 'ssi_yn.collapsed', 'abcess_yn.factor',
