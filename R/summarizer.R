@@ -16,8 +16,12 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 		} else {
 			glmmulti.out = glmmulti(df, dependent, explanatory.multi)
 		}
-	} else {
-		glmmulti.out = glmmixed(df, dependent, explanatory, random_effect)
+	} else if (is.null(random_effect) == FALSE){
+		if (is.null(explanatory.multi)){
+			glmmulti.out = glmmixed(df, dependent, explanatory, random_effects)
+		} else {
+			glmmulti.out = glmmixed(df, dependent, explanatory.multi, random_effects)
+		}
 	}
 
 	# fit2df
