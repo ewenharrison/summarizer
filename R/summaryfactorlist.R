@@ -8,7 +8,6 @@ summary.factorlist <- function(df, dependent, explanatory, cont="mean", p=FALSE,
 							column=column, total_col=total_col, orderbytotal=orderbytotal, glm.id=glm.id)
 
 	d.len = length(levels(df[,names(df) %in% dependent]))
-
 	if (d.len == 2){
 		do.call(summary.factorlist2, args)
 	} else if (d.len == 3){
