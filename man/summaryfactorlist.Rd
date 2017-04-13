@@ -22,8 +22,10 @@ A function that takes a single dependent variable with a vector of explanatory v
 \item{glm.id}{Logical: not used directly, allows merging via summary.merge}
 }
 \examples{
-explanatory = c('ssi_yn.factor', 'ssi_yn.collapsed', 'abcess_yn.factor', 'reintervention_yn.factor', 'mort30.factor', 'los')
-out.sum = summary.factorlist(data_gs2, 'hdi_tertile', explanatory, cont = "median", col = T, p = T, na.include = T)
+explanatory = c('ssi_yn.factor', 'ssi_yn.collapsed', 'abcess_yn.factor',
+	'reintervention_yn.factor', 'mort30.factor', 'los')
+out.sum = summary.factorlist(data_gs2, 'hdi_tertile', explanatory,
+	cont = "median", p = TRUE, na.include = TRUE, column = TRUE)
 out.sum = rm_duplicate_labels(out.sum, na.to.missing = TRUE)
 out.sum
 }
