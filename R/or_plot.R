@@ -1,4 +1,4 @@
-r.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL){
+or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5)){
 	require(gridExtra)
 	require(ggplot2)
 	# Generate or format factorlist object
@@ -42,9 +42,9 @@ r.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL){
 					legend.position="none")
 
 	t1 = ggplot(df.out, aes(x = as.numeric(OR), y = glm.id))+
-		annotate("text", x = -0.5, y =  df.out$glm.id, label=df.out[,2], hjust=0, size=5)+
-		annotate("text", x = 0, y =  df.out$glm.id, label=df.out[,3], hjust=1, size=5)+
-		annotate("text", x = 0.5, y =  df.out$glm.id, label=df.out[,8], hjust=1, size=5)+
+		annotate("text", x = column_space[1], y =  df.out$glm.id, label=df.out[,2], hjust=0, size=5)+
+		annotate("text", x = column_space[2], y =  df.out$glm.id, label=df.out[,3], hjust=1, size=5)+
+		annotate("text", x = column_space[3], y =  df.out$glm.id, label=df.out[,8], hjust=1, size=5)+
 		theme_classic(14)+
 		theme(axis.title.x = element_text(colour = "white"),
 					axis.text.x = element_text(colour = "white"),
@@ -53,8 +53,14 @@ r.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL){
 					axis.ticks.y = element_blank(),
 					line = element_blank())
 
-	title = paste0(attr(df[,which(names(df) %in% dependent)], "label"),
-								 ": ", "(OR, 95% CI, p-value)")
+	dependent_name =attr(df[,which(names(df) %in% dependent)], "label")
+
+	if (is.null(dependent_name)){
+		title = paste0(dependent, ": ", "(OR, 95% CI, p-value)")
+	} else {
+		paste0(attr(df[,which(names(df) %in% dependent)], "label"),
+					 ": ", "(OR, 95% CI, p-value)")
+	}
 
 	grid.arrange(t1, g1, ncol=2, widths = c(3,2),
 							 top=textGrob(title, x=0.02, y=0.2, gp=gpar(fontsize=18), just="left"))
