@@ -5,7 +5,7 @@ fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE){
 	require(pROC)
 
 	require(plyr)
-	df.out <- ldply(fit, function(x) {
+	df.out <- ldply(fit, .id = NULL, function(x) {
 		explanatory = names(coef(x))
 		or = round(exp(coef(x)), 2)
 		ci = round(exp(confint(x)), 2)
