@@ -1,6 +1,6 @@
-\name{{or.plot}
+\name{or.plot}
 \alias{or.plot}
-\title{Produce odds ratio table and plot.}
+\title{Produce odds ratio table and plot}
 \usage{
 or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5)){
 }
