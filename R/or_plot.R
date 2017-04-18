@@ -1,6 +1,7 @@
 or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5)){
 	require(gridExtra)
 	require(ggplot2)
+	require(scales)
 	# Generate or format factorlist object
 	if(is.null(factorlist)){
 		factorlist = summary.factorlist(df, dependent, explanatory, total=TRUE, glm.id=TRUE)
@@ -32,7 +33,7 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 		geom_point(aes(size = Total), shape=22, fill="darkblue")+
 		geom_errorbarh(height=0.2) +
 		geom_vline(xintercept = 1, linetype = "longdash", colour = "black")+
-		xlab(colnames(df.out)[8])+
+		scale_x_continuous(name="Odds ratio (95% CI, log scale)", trans="log10", breaks= pretty_breaks())+
 		theme_classic(14)+
 		theme(axis.title.x = element_text(),
 					axis.title.y = element_blank(),
@@ -58,8 +59,7 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	if (is.null(dependent_name)){
 		title = paste0(dependent, ": ", "(OR, 95% CI, p-value)")
 	} else {
-		paste0(attr(df[,which(names(df) %in% dependent)], "label"),
-					 ": ", "(OR, 95% CI, p-value)")
+		title = paste0(dependent_name, ": ", "(OR, 95% CI, p-value)")
 	}
 
 	grid.arrange(t1, g1, ncol=2, widths = c(3,2),
