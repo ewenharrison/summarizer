@@ -1,5 +1,6 @@
 summary.factorlist2 <- function(df, dependent, explanatory,  cont="mean", p=FALSE, na.include=FALSE,
-															 column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE){
+															 column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE,
+																na.to.missing = TRUE){
 	require(Hmisc)
 	require(plyr)
 	s <- summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
@@ -98,5 +99,8 @@ summary.factorlist2 <- function(df, dependent, explanatory,  cont="mean", p=FALS
 	id_index = which(names(df.out.labels) == ".id")
 	index_total_index = which(names(df.out.labels) == "index_total")
 	df.out.labels = df.out.labels[,-c(id_index, index_total_index, index_index)]
+
+	# Remove duplicate labels
+	df.out.labels = rm_duplicate_labels(df.out.labels, na.to.missing = na.to.missing)
 	return(df.out.labels)
 }

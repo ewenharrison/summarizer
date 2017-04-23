@@ -6,7 +6,6 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	if(is.null(factorlist)){
 		factorlist = summary.factorlist(df, dependent, explanatory, total=TRUE, glm.id=TRUE)
 	}
-	factorlist = rm_duplicate_labels(factorlist)
 
 	# Generate or format glm
 	if(is.null(glmfit)){
@@ -54,12 +53,12 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 					axis.ticks.y = element_blank(),
 					line = element_blank())
 
-	dependent_name =attr(df[,which(names(df) %in% dependent)], "label")
+	dependent_label =attr(df[,which(names(df) %in% dependent)], "label")
 
-	if (is.null(dependent_name)){
+	if (is.null(dependent_label)){
 		title = paste0(dependent, ": ", "(OR, 95% CI, p-value)")
 	} else {
-		title = paste0(dependent_name, ": ", "(OR, 95% CI, p-value)")
+		title = paste0(dependent_label, ": ", "(OR, 95% CI, p-value)")
 	}
 
 	grid.arrange(t1, g1, ncol=2, widths = c(3,2),

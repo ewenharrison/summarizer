@@ -112,5 +112,8 @@ summary.factorlist5 <- function(df, dependent, explanatory, cont="mean", p=FALSE
 	index_index = which(names(df.out.labels) == "index")
 	index_total_index = which(names(df.out.labels) == "index_total")
 	df.out.labels = df.out.labels[,-c(id_index, index_index, index_total_index)]
+
+	# Remove duplicate labels
+	df.out.labels = rm_duplicate_labels(df.out.labels, na.to.missing = na.to.missing)
 	return(df.out.labels)
 }

@@ -3,9 +3,6 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 	summary.out = summary.factorlist(df, dependent, explanatory, p=FALSE, na.include=FALSE,
 																	 column=TRUE, total_col=FALSE, orderbytotal=FALSE, glm.id=TRUE)
 
-	# Remove duplicate labels
-	summary.out = rm_duplicate_labels(summary.out, na.to.missing = TRUE)
-
 	# Univariable
 	glmuni.out = glmuni(df, dependent, explanatory)
 

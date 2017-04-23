@@ -1,24 +1,28 @@
 # Wrapper for glmmixed
-fit2df.glmerMod = function(model, condense=TRUE, metrics=FALSE){
+fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE){
 	require(pROC)
-	{
-		sum.lem=data.frame(summary(model)$coef)
-		sum.lem<-sum.lem[-which(rownames(sum.lem)=="(Intercept)"),]
-		sum.lem.p=sum.lem$Pr...z..
-		model.or=data.frame(exp(lme4::fixef(model)))
-		model.or<-model.or[-which(rownames(model.or)=="(Intercept)"),]
-		model.ci = data.frame(exp(confint(model, method="Wald")))
-		model.ci<-model.ci[-which(rownames(model.ci)=="(Intercept)"),]
-		model.ci<-model.ci[-grep("sig", rownames(model.ci)),]
-		df=cbind(round(model.or, digits=2), round(model.ci, digits = 2), round(sum.lem.p, digits=3))
-		colnames(df)=c('OR', 'L95', 'U95', 'p')
-	}
-	df.out=data.frame(df)
+	require(lme4)
+	x = fit
+	explanatory = names(fixef(x))
+	or = round(exp(fixef(x)), 2)
+	ci = round(exp(confint(x, method='Wald')), 2)
+	ci = ci[-grep("sig", rownames(ci)),]
+	p = round(summary(x)$coef[,"Pr(>|z|)"], 3)
+	df.out = data.frame(
+		"explanatory" = explanatory,
+		"OR" = or,
+		"L95" = ci[,1],
+		"U95" = ci[,2],
+		p = p)
+
+	# Remove intercepts
+	df.out = df.out[-which(df.out$explanatory =="(Intercept)"),]
+
 	if (condense==TRUE){
 		p = paste0("=", sprintf("%.3f", df.out$p))
 		p[p == "=0.000"] = "<0.001"
 		df.out = data.frame(
-			"explanatory" = row.names(df.out),
+			"explanatory" = df.out$explanatory,
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95), ", p", p, ")"))
 	}

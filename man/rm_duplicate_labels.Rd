@@ -1,6 +1,6 @@
 \name{rm_duplicate_labels}
 \alias{rm_duplicate_labels}
-\title{Format a code{summary.factorlist} \object directly}
+\title{Format a \code{factorlist} object directly}
 \usage{
 rm_duplicate_labels(factorlist, na.to.missing = FALSE)
 }
@@ -8,7 +8,7 @@ rm_duplicate_labels(factorlist, na.to.missing = FALSE)
 Not normally called directly.
 }
 \arguments{
-\item{factorlist}{Output from code{summary.factorlist}}
+\item{factorlist}{Output from \code{summary.factorlist}}
 \item{na.to.missing}{Label \code{NA} as "Missing" in table}
 }
 

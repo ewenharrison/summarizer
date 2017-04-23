@@ -4,7 +4,7 @@
 \usage{
 summary.factorlist(df, dependent, explanatory, cont=c("mean","median"),
 	p=FALSE, na.include=FALSE, column=FALSE, total_col=FALSE,
-	orderbytotal=FALSE, glm.id=FALSE)
+	orderbytotal=FALSE, glm.id=FALSE, na.to.missing = TRUE)
 }
 \description{
 A function that takes a single dependent variable with a vector of explanatory variable names (continuous or categorical variables) to produce summary table.
@@ -20,6 +20,7 @@ A function that takes a single dependent variable with a vector of explanatory v
 \item{total_col}{Logical: include a total column summing across factor levels}
 \item{orderbytotal}{Logical: order final table by total column high to low}
 \item{glm.id}{Logical: not used directly, allows merging via \code{summary.merge}}
+\item{na.to.missing}{Logical: convert \code{NA} to 'Missing' when \code{na.include=TRUE}}
 }
 \examples{
 explanatory = c('ssi_yn.factor', 'ssi_yn.collapsed', 'abcess_yn.factor',

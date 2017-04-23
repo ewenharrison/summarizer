@@ -1,5 +1,5 @@
 # Remove duplicate levels from summary.factorlist ----
-rm_duplicate_labels = function(factorlist, na.to.missing = FALSE){
+rm_duplicate_labels = function(factorlist, na.to.missing = TRUE){
 	x = factorlist
 	duplicate_rows = duplicated(x$label)
 	x$label = as.character(x$label)
