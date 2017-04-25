@@ -5,7 +5,7 @@ fit2df.stanfit = function(stanfit, X, condense=TRUE, metrics=FALSE, na.to.missin
 
 	# Extract model
 	explanatory = attr(X, "dimnames")[[2]]
-	model = summary(stanfit,
+	model = rstan::summary(stanfit,
 									pars = pars,
 									probs = quantiles)$summary
 	or = round(exp(model[, 1]), 2)
