@@ -1,4 +1,4 @@
-fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE){
+fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, X=X){
 	if (metrics==TRUE && length(fit)>1){
 		stop("Metrics only generated for single models: multiple models supplied to function")
 	}

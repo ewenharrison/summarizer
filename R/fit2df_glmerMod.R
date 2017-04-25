@@ -1,5 +1,5 @@
 # Wrapper for glmmixed
-fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE){
+fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, X=X){
 	require(pROC)
 	require(lme4)
 	x = fit

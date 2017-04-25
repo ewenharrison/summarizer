@@ -1,4 +1,4 @@
-fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE){
+fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, X=X){
 	require(pROC)
 	{
 		x = fit
