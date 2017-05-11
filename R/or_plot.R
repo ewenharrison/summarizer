@@ -1,5 +1,4 @@
 or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5), X=X){
-	require(gridExtra)
 	require(ggplot2)
 	require(scales)
 	# Generate or format factorlist object
@@ -61,6 +60,6 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 		title = paste0(dependent_label, ": ", "(OR, 95% CI, p-value)")
 	}
 
-	grid.arrange(t1, g1, ncol=2, widths = c(3,2),
-							 top=textGrob(title, x=0.02, y=0.2, gp=gpar(fontsize=18), just="left"))
+	gridExtra::grid.arrange(t1, g1, ncol=2, widths = c(3,2),
+							 top=gridExtra::textGrob(title, x=0.02, y=0.2, gp=gpar(fontsize=18), just="left"))
 }

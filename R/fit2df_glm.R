@@ -1,5 +1,4 @@
 fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, X=X){
-	require(pROC)
 	{
 		x = fit
 		explanatory = names(coef(x))
@@ -33,7 +32,7 @@ fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, 
 		n_data = dim(x$data)[1]
 		n_model = dim(x$model)[1]
 		aic = round(x$aic, 1)
-		auc = round(roc(x$y, x$fitted)$auc[1], 3)
+		auc = round(pROC::roc(x$y, x$fitted)$auc[1], 3)
 		metrics.out = paste0(
 			"Number in dataframe = ", n_data,
 			", Number in model = ", n_model,

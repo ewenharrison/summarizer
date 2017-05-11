@@ -2,10 +2,8 @@ fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, X=X){
 	if (metrics==TRUE && length(fit)>1){
 		stop("Metrics only generated for single models: multiple models supplied to function")
 	}
-	require(pROC)
 
-	require(plyr)
-	df.out <- ldply(fit, .id = NULL, function(x) {
+	df.out <- plyr::ldply(fit, .id = NULL, function(x) {
 		explanatory = names(coef(x))
 		or = round(exp(coef(x)), 2)
 		ci = round(exp(confint(x)), 2)
@@ -37,7 +35,7 @@ fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, X=X){
 		n_data = dim(x$data)[1]
 		n_model = dim(x$model)[1]
 		aic = round(x$aic, 1)
-		auc = round(roc(x$y, x$fitted)$auc[1], 3)
+		auc = round(pROC::roc(x$y, x$fitted)$auc[1], 3)
 		metrics.out = paste0(
 			"Number in dataframe = ", n_data,
 			", Number in model = ", n_model,

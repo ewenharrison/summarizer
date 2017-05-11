@@ -1,11 +1,9 @@
 # Wrapper for glmmixed
 fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, X=X){
-	require(pROC)
-	require(lme4)
 	x = fit
-	explanatory = names(fixef(x))
-	or = round(exp(fixef(x)), 2)
-	ci = round(exp(confint(x, method='Wald')), 2)
+	explanatory = names(lme4::fixef(x))
+	or = round(exp(lme4::fixef(x)), 2)
+	ci = round(exp(lme4::confint(x, method='Wald')), 2)
 	ci = ci[-grep("sig", rownames(ci)),]
 	p = round(summary(x)$coef[,"Pr(>|z|)"], 3)
 	df.out = data.frame(
@@ -32,7 +30,7 @@ fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, X=X){
 		n_model = length(x@resp$mu)
 		n_groups = summary(x)$ngrps
 		aic = round(summary(x)$AICtab[[1]], 1)
-		auc = round(roc(x@resp$y, x@resp$mu)$auc[1], 3)
+		auc = round(pROC::roc(x@resp$y, x@resp$mu)$auc[1], 3)
 		metrics.out = paste0(
 			"Number in model = ", n_model,
 			", Number of groups = ", paste(n_groups, collapse="/"),

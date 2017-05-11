@@ -1,7 +1,7 @@
 Package: summarizer
 Type: Package
 Title: Summarizer
-Version: 0.1.1
+Version: 0.2.1
 Author: Harrison, Drake, Ots
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: Summary functions and easily exportable tables for frontline R users.

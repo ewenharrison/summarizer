@@ -1,6 +1,5 @@
 fit2df.coxphlist <- function(fit, condense=FALSE, X=X){
-	require(plyr)
-	df.out <- ldply(fit, function(x) {
+	df.out <- plyr::ldply(fit, function(x) {
 		conf.int = summary(x)$conf.int
 		explanatory = row.names(conf.int)
 		hr = conf.int[,1]

@@ -1,5 +1,4 @@
 fit2df.stanfit = function(stanfit, X, condense=TRUE, metrics=FALSE, na.to.missing = TRUE){
-	require(rstan)
 	pars = "beta"
 	quantiles =  c(0.025, 0.50, 0.975)
 
@@ -13,7 +12,7 @@ fit2df.stanfit = function(stanfit, X, condense=TRUE, metrics=FALSE, na.to.missin
 	U95 = round(exp(model[, 6]), 2)
 
 	# Determine a p-value based on two-sided examination of chains
-	chains = extract(stanfit, pars=pars, permuted = TRUE, inc_warmup = FALSE,
+	chains = rstan::extract(stanfit, pars=pars, permuted = TRUE, inc_warmup = FALSE,
 									 include = TRUE)
 	p1.out = apply(chains[[1]], 2, function(x)mean(x<0))
 	p2.out = apply(chains[[1]], 2, function(x)mean(x>0))
