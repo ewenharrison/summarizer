@@ -42,24 +42,23 @@ fit2df.stanfit = function(stanfit, X, condense=TRUE, metrics=FALSE, na.to.missin
 	}
 
 	# Extract model metrics
-	# if (metrics==TRUE){
-	# 	x = fit
-	# 	n_data = dim(x$data)[1]
-	# 	n_model = dim(x$model)[1]
-	# 	aic = round(x$aic, 1)
-	# 	auc = round(roc(x$y, x$fitted)$auc[1], 3)
-	# 	metrics.out = paste0(
-	# 		"Number in dataframe = ", n_data,
-	# 		", Number in model = ", n_model,
-	# 		", Missing = ", n_data-n_model,
-	# 		", AIC = ", aic,
-	# 		", C-statistic = ", auc)
-	# }
-	#
-	# if (metrics==TRUE){
-	# 	return(list(df.out, metrics.out))
-	# } else {
-	# 	return(df.out)
-	# }
+	if (metrics==TRUE){
+		# n_data = dim(x$data)[1] # no equivalent here
+		n_model = dim(X)[1]
+		# aic = round(x$aic, 1) # add WAIC later?
+		# auc = round(roc(x$y, x$fitted)$auc[1], 3) # Add predicted mu later?
+		metrics.out = paste0(
+		#	"Number in dataframe = ", n_data,
+			", Number in model = ", n_model)
+		#	", Missing = ", n_data-n_model,
+		#	", AIC = ", aic,
+		#	", C-statistic = ", auc)
+	}
+
+	if (metrics==TRUE){
+		return(list(df.out, metrics.out))
+	} else {
+		return(df.out)
+	}
 	return(df.out)
 }

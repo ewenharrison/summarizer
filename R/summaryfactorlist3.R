@@ -1,13 +1,11 @@
 summary.factorlist3 <- function(df, dependent, explanatory, cont="mean", p=FALSE, na.include=FALSE,
 																column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE,
 																na.to.missing = TRUE){
-	require(Hmisc)
-	require(plyr)
-	s <- summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
+	s <- Hmisc::summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
 											 method="reverse", overall=FALSE,
 											 test=TRUE,na.include=na.include)
 	# Column vs row proportions for factor variables
-	df.out = ldply(s$stats, function(x){
+	df.out = plyr::ldply(s$stats, function(x){
 		if(dim(x)[2] == 13){ #hack to get continuous vs categorical. Wouldn't work for factor with 13 levels
 			# Continuous variables
 			# Mean (SD)
@@ -71,7 +69,7 @@ summary.factorlist3 <- function(df, dependent, explanatory, cont="mean", p=FALSE
 	df.out$index = 1:dim(df.out)[1]
 
 	if (p == TRUE){
-		a = ldply(s$testresults, function(x) sprintf("%.3f",round(x[[1]], 3)))
+		a = plyr::ldply(s$testresults, function(x) sprintf("%.3f",round(x[[1]], 3)))
 		names(a) = c(".id", "pvalue")
 		df.out = merge(df.out, a, by=".id")
 	}
