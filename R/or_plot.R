@@ -61,5 +61,5 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	}
 
 	gridExtra::grid.arrange(t1, g1, ncol=2, widths = c(3,2),
-							 top=gridExtra::textGrob(title, x=0.02, y=0.2, gp=gpar(fontsize=18), just="left"))
+							 top=grid::textGrob(title, x=0.02, y=0.2, gp=gpar(fontsize=18), just="left"))
 }
