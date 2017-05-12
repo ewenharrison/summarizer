@@ -1,5 +1,5 @@
 fit2df.stanfit = function(fit, X, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, estimate.name="OR"){
-	stanfit = x
+	stanfit = fit
 	pars = "beta"
 	quantiles =  c(0.025, 0.50, 0.975)
 
