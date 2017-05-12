@@ -1,17 +1,11 @@
-fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, X=X){
-	{
-		x = fit
-		explanatory = names(coef(x))
-		or = round(exp(coef(x)), 2)
-		ci = round(exp(confint(x)), 2)
-		p = round(summary(x)$coef[,"Pr(>|z|)"], 3)
-		df.out = data.frame(
-			"explanatory" = explanatory,
-			"OR" = or,
-			"L95" = ci[,1],
-			"U95" = ci[,2],
-			p = p)
-	}
+fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing=TRUE, estimate.name="OR"){
+	x = fit
+	explanatory = names(coef(x))
+	or = round(exp(coef(x)), 2)
+	ci = round(exp(confint(x)), 2)
+	p = round(summary(x)$coef[,"Pr(>|z|)"], 3)
+	df.out = data.frame(explanatory, or, ci[,1], ci[,2], p)
+	colnames(df.out) = c("explanatory", estimate.name, "L95", "U95", "p")
 
 	# Remove intercept
 	df.out = df.out[-which(df.out$explanatory =="(Intercept)"),]
@@ -24,6 +18,7 @@ fit2df.glm <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, 
 			"explanatory" = df.out$explanatory,
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95), ", p", p, ")"))
+		colnames(df.out) = c("explanatory", estimate.name)
 	}
 
 	# Extract model metrics

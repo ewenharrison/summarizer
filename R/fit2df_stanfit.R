@@ -1,4 +1,5 @@
-fit2df.stanfit = function(stanfit, X, condense=TRUE, metrics=FALSE, na.to.missing = TRUE){
+fit2df.stanfit = function(fit, X, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, estimate.name="OR"){
+	stanfit = x
 	pars = "beta"
 	quantiles =  c(0.025, 0.50, 0.975)
 
@@ -20,12 +21,8 @@ fit2df.stanfit = function(stanfit, X, condense=TRUE, metrics=FALSE, na.to.missin
 	p2.out = p2.out*2
 	p.out = ifelse(p1.out < 1, p1.out, p2.out)
 	p = round(p.out, 3)
-	df.out = data.frame(
-		"explanatory" = explanatory,
-		"OR" = or,
-		"L95" = L95,
-		"U95" = U95,
-		p = p)
+	df.out = data.frame(explanatory, or, L95, U95, p)
+	colnames(df.out) = c("explanatory", estimate.name, "L95", "U95", "p")
 
 	# Remove intercept
 	df.out = df.out[-which(df.out$explanatory =="(Intercept)"),]
@@ -38,6 +35,7 @@ fit2df.stanfit = function(stanfit, X, condense=TRUE, metrics=FALSE, na.to.missin
 			"explanatory" = df.out$explanatory,
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95), ", p", p, ")"))
+		colnames(df.out) = c("explanatory", estimate.name)
 	}
 
 	# Extract model metrics

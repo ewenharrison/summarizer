@@ -1,4 +1,5 @@
-fit2df.glmboot = function(boot_results, condense=FALSE, X=X){
+fit2df.glmboot = function(fit, condense=FALSE, estimate.name="OR"){
+	bootresults = fit
 	df.out = data.frame(OR=exp(boot_results$t0))
 	R = dim(boot_results$t)[1]
 	for (i in 1:dim(df.out)[1]){
@@ -11,6 +12,7 @@ fit2df.glmboot = function(boot_results, condense=FALSE, X=X){
 			"explanatory" = row.names(df.out),
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95), ", p=", sprintf("%.3f", df.out$p), ")"))
+		colnames(df.out) = c("explanatory", estimate.name)
 	}
 	return(df.out)
 }

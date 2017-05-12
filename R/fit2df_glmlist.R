@@ -1,19 +1,17 @@
-fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, X=X){
-	if (metrics==TRUE && length(fit)>1){
+fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, estimate.name="OR"){
+	x = fit
+
+	if (metrics==TRUE && length(x)>1){
 		stop("Metrics only generated for single models: multiple models supplied to function")
 	}
 
-	df.out <- plyr::ldply(fit, .id = NULL, function(x) {
+	df.out <- plyr::ldply(x, .id = NULL, function(x) {
 		explanatory = names(coef(x))
 		or = round(exp(coef(x)), 2)
 		ci = round(exp(confint(x)), 2)
 		p = round(summary(x)$coef[,"Pr(>|z|)"], 3)
-		df.out = data.frame(
-			"explanatory" = explanatory,
-			"OR" = or,
-			"L95" = ci[,1],
-			"U95" = ci[,2],
-			p = p)
+		df.out = data.frame(explanatory, or, ci[,1], ci[,2], p)
+		colnames(df.out) = c("explanatory", estimate.name, "L95", "U95", "p")
 		return(df.out)
 	})
 
@@ -27,6 +25,7 @@ fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, X=X){
 			"explanatory" = df.out$explanatory,
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95), ", p", p, ")"))
+		colnames(df.out) = c("explanatory", estimate.name)
 	}
 
 	# Extract model metrics

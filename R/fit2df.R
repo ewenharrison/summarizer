@@ -1,3 +1,3 @@
-fit2df <- function(fit, X=X, condense=TRUE, metrics=FALSE){
+fit2df <- function(fit, ...){
 	UseMethod("fit2df")
 }

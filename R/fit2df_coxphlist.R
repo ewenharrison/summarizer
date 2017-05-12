@@ -1,5 +1,6 @@
-fit2df.coxphlist <- function(fit, condense=FALSE, X=X){
-	df.out <- plyr::ldply(fit, function(x) {
+fit2df.coxphlist <- function(fit, condense=FALSE, estimate.name="HR"){
+	x = fit
+	df.out <- plyr::ldply(x, function(x) {
 		conf.int = summary(x)$conf.int
 		explanatory = row.names(conf.int)
 		hr = conf.int[,1]
@@ -7,13 +8,9 @@ fit2df.coxphlist <- function(fit, condense=FALSE, X=X){
 		U95 = conf.int[,4]
 		p = summary(x)$coefficients[row.names(conf.int),
 																max(dim(summary(x)$coefficients)[2])] # Hack to get p fe and re
-		df = data.frame(
-			'explanatory' = explanatory,
-			'HR' = hr,
-			'L95' = L95,
-			'U95' = U95,
-			'p' = p)
-		return(df)
+		df.out = data.frame(explanatory, or, ci[,1], ci[,2], p)
+		colnames(df.out) = c("explanatory", estimate.name, "L95", "U95", "p")
+		return(df.out)
 	})
 	if (condense==TRUE){
 		df.out = data.frame(
@@ -21,6 +18,7 @@ fit2df.coxphlist <- function(fit, condense=FALSE, X=X){
 			"HR" = paste0(sprintf("%.2f", df.out$HR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95),
 										", p=", sprintf("%.3f", df.out$p), ")"))
+		colnames(df.out) = c("explanatory", estimate.name)
 	}
 	return(df.out)
 }
