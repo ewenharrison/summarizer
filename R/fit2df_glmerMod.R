@@ -1,5 +1,5 @@
 # Wrapper for glmmixed
-fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, estimate.name="OR"){
+fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, estimate.suffix=""){
 	x = fit
 	explanatory = names(lme4::fixef(x))
 	or = round(exp(lme4::fixef(x)), 2)
@@ -7,7 +7,7 @@ fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, estimate.name="OR"
 	ci = ci[-grep("sig", rownames(ci)),]
 	p = round(summary(x)$coef[,"Pr(>|z|)"], 3)
 	df.out = data.frame(explanatory, or, ci[,1], ci[,2], p)
-	colnames(df.out) = c("explanatory", estimate.name, "L95", "U95", "p")
+	colnames(df.out) = c("explanatory", paste0("OR", estimate.suffix), "L95", "U95", "p")
 
 	# Remove intercepts
 	df.out = df.out[-which(df.out$explanatory =="(Intercept)"),]
@@ -19,7 +19,7 @@ fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, estimate.name="OR"
 			"explanatory" = df.out$explanatory,
 			"OR" = paste0(sprintf("%.2f", df.out$OR), " (", sprintf("%.2f", df.out$L95), "-",
 										sprintf("%.2f", df.out$U95), ", p", p, ")"))
-		colnames(df.out) = c("explanatory", estimate.name)
+		colnames(df.out) = c("explanatory", paste0("OR", estimate.suffix))
 	}
 	# Extract model metrics
 	if (metrics==TRUE){
