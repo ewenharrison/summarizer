@@ -1,3 +1,5 @@
+# Needs names/suffix methods updated if working ok
+
 summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random_effect=NULL, metrics=FALSE){
 	# Summary table
 	summary.out = summary.factorlist(df, dependent, explanatory, p=FALSE, na.include=FALSE,

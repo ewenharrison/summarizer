@@ -3,7 +3,7 @@ fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, estimate.suffix=""
 	x = fit
 	explanatory = names(lme4::fixef(x))
 	or = round(exp(lme4::fixef(x)), 2)
-	ci = round(exp(lme4::confint(x, method='Wald')), 2)
+	ci = round(exp(lme4::confint.merMod(x, method='Wald')), 2)
 	ci = ci[-grep("sig", rownames(ci)),]
 	p = round(summary(x)$coef[,"Pr(>|z|)"], 3)
 	df.out = data.frame(explanatory, or, ci[,1], ci[,2], p)

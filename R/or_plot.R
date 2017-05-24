@@ -1,4 +1,4 @@
-or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5), X=X){
+or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5), ...){
 	require(ggplot2)
 	require(scales)
 	# Generate or format factorlist object

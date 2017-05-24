@@ -1,4 +1,4 @@
-fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, estimate.suffix=""){
+fit2df.glmlist <- function(fit, condense=TRUE, metrics=FALSE, na.to.missing = TRUE, estimate.suffix="", ...){
 	x = fit
 
 	if (metrics==TRUE && length(x)>1){
