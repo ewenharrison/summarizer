@@ -10,8 +10,8 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	if(is.null(glmfit)){
 		glmfit = glmmulti(df, dependent, explanatory)
 	}
-	df_fit_c = fit2df(glmfit, condense = TRUE, X=X)
-	df_fit = fit2df(glmfit, condense = FALSE, X=X)
+	df_fit_c = fit2df(glmfit, condense = TRUE, ...)
+	df_fit = fit2df(glmfit, condense = FALSE, ...)
 
 	# Merge
 	df.out = summarizer.merge(factorlist, df_fit_c)
