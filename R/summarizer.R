@@ -17,9 +17,9 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 		}
 	} else if (is.null(random_effect) == FALSE){
 		if (is.null(explanatory.multi)){
-			glmmulti.out = glmmixed(df, dependent, explanatory, random_effects)
+			glmmulti.out = glmmixed(df, dependent, explanatory, random_effect)
 		} else {
-			glmmulti.out = glmmixed(df, dependent, explanatory.multi, random_effects)
+			glmmulti.out = glmmixed(df, dependent, explanatory.multi, random_effect)
 		}
 	}
 
