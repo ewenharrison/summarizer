@@ -23,7 +23,7 @@ fit2df.glmerMod = function(fit, condense=TRUE, metrics=FALSE, estimate.suffix=""
 	}
 	# Extract model metrics
 	if (metrics==TRUE){
-		x = model
+		x = fit
 		n_model = length(x@resp$mu)
 		n_groups = summary(x)$ngrps
 		aic = round(summary(x)$AICtab[[1]], 1)
