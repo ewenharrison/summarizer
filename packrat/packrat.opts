@@ -4,12 +4,18 @@ print.banner.on.startup: auto
 vcs.ignore.lib: TRUE
 vcs.ignore.src: TRUE
 external.packages:
+    Rcpp
     plyr
     Hmisc
     pROC
     mice
     rstan
     boot
+    StanHeaders
+    ggplot2
+    gridExtra
+    stringr
+    tibble
 local.repos: 
 load.external.packages.on.startup: TRUE
 ignored.packages: 

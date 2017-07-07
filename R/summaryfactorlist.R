@@ -10,7 +10,10 @@ summary.factorlist <- function(df, dependent, explanatory, cont="mean", p=FALSE,
 							na.to.missing=na.to.missing)
 
 	d.len = length(levels(df[,names(df) %in% dependent]))
-	if (d.len == 2){
+	if (d.len == 0){
+		warning("Dependent is not a factor and will be treated as a continuous variable")
+		do.call(summary.factorlist1, args)
+	} else if (d.len == 2){
 		do.call(summary.factorlist2, args)
 	} else if (d.len == 3){
 		do.call(summary.factorlist3, args)
