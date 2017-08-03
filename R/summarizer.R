@@ -45,6 +45,11 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 		names(df.out)[which(names(df.out)=="OR")] = "OR (multilevel)"
 	}
 
+	# Label interactions
+	na.label = which(is.na(df.out$label))
+	df.out$label[na.label] = df.out$glm.id[na.label]
+	df.out$levels[na.label] = "Interaction"
+
 	# Tidy up
 	index_glm.id = which(names(df.out)=="glm.id")
 	index_index = which(names(df.out)=="index")
