@@ -86,6 +86,7 @@ summary.factorlist2 <- function(df, dependent, explanatory,  cont="mean", p=FALS
 	if (glm.id){
 		levels = as.character(df.out.labels$levels)
 		levels[levels == "Mean (SD)"] = ""
+		levels[levels == "Median (IQR)"] = ""
 		df.out.labels$glm.id = paste0(df.out.labels$.id, levels)
 	}
 

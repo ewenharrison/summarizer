@@ -21,6 +21,12 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	# Fill in total for continuous variables (NA by default)
 	df.out$Total[is.na(df.out$Total)] = dim(df)[1]
 
+	# Remove unwanted lines, where there are more variables in model than wish to display.
+	# Note merge function in summarizer merge is now `all` rather than `all.x` as wish to preserve interactions
+	# These not named in factorlist, creating this problem. Interactions don't show on plot.
+	remove_rows = which(is.na(df.out$label))
+	df.out = df.out[-remove_rows,]
+
 	# Fix order
 	df.out$levels = as.character(df.out$levels)
 	df.out$glm.id = factor(df.out$glm.id, levels = df.out$glm.id[order(-df.out$index)])
