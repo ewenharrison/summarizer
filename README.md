@@ -30,21 +30,28 @@ Main Features
 This is usually "Table 1" of a study report. 
 
 ``` r
+library(summarizer)
+library(tidyverse)
+
+# Load dataset
+data(colon_s)
+
 # Table 1 - Patient demographics ----
-explanatory = c("age", "gender.factor")
-dependent = 'hdi_tertile'
-data %>%
-  summary.factorlist(dependent, explanatory, column = T, p = T, na.include = T, total=T)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+  summary.factorlist(dependent, explanatory, p=T)
+
 ```
 
 `summary.factorlist` is also commonly used to summarise any number of variables by an *outcome variable* (say dead yes/no).  
 
 ``` r
 # Table 2 - Mortality ----
-explanatory = c("age", "gender.factor", "hdi_tertile")
-dependent = 'mort.factor'
-data %>%
-  summary.factorlist(dependent, explanatory, column = T, p = T, na.include = T, total=T)
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = 'mort_5yr'
+colon_s %>%
+  summary.factorlist(dependent, explanatory)
 ```
 
 ### 2. Summarise regression model results in final table format
@@ -58,31 +65,30 @@ univariable and multivariable logistic regression analyses. The first columns ar
 `summary.factorist`. 
 
 ``` r
-explanatory = c("age", "gender.factor", "hdi_tertile")
-dependent = 'mort.factor'
-data %>%
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = 'mort_5yr'
+colon_s %>%
   summarizer(dependent, explanatory)
 ```
 
 Where a multivariable model contains a subset of the variables specified in the full univariable set, this can be specified. 
 
 ``` r
-explanatory = c("age", "gender.factor", "hdi_tertile")
-explanatory.multi = c("age","hdi_tertile")
-dependent = 'mort.factor'
-data %>%
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+explanatory.multi = c("age.factor", "obstruct.factor")
+dependent = 'mort_5yr'
+colon_s %>%
   summarizer(dependent, explanatory, explanatory.multi)
 ```
 
 Random effects.
 
 ``` r
-explanatory = c("age", "gender.factor", "hdi_tertile")
-explanatory.multi = c("age","hdi_tertile")
-dependent = 'mort.factor'
-random_effect = "hdi_countries"
-
-data %>%
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+explanatory.multi = c("age.factor", "obstruct.factor")
+random.effect = "hospital"
+dependent = 'mort_5yr'
+colon_s %>%
   summarizer(dependent, explanatory, explanatory.multi, random.effect)
 ```
 
@@ -93,41 +99,42 @@ Note requirement for `glm.id=TRUE`. `fit2df` is a subfunction extracting most co
 
 
 ``` r
-explanatory = c("age", "gender.factor", "hdi_tertile")
-explanatory.multi = c("age","hdi_tertile")
-dependent = 'mort.factor'
-random_effect = "hdi_countries"
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+explanatory.multi = c("age.factor", "obstruct.factor")
+random.effect = "hospital"
+dependent = 'mort_5yr'
 
 # Separate tables
-data %>%
+colon_s %>%
   summary.factorlist(dependent, explanatory, glm.id=TRUE) -> example.summary
-  
-data %>%
+
+colon_s %>%
   glmuni(dependent, explanatory) %>%
   fit2df(estimate.suffix=" (univariable)") -> example.univariable
-  
-data %>%
+
+colon_s %>%
   glmmulti(dependent, explanatory) %>%
   fit2df(estimate.suffix=" (multivariable)") -> example.multivariable
 
 
-data %>%
-  glmmixed(dependent, explanatory, random_effect) %>%
+colon_s %>%
+  glmmixed(dependent, explanatory, random.effect) %>%
   fit2df(estimate.suffix=" (multilevel") -> example.multilevel
 
 # Pipe together
 example.summary %>% 
-	summarizer.merge(example.univariable) %>% 
-	summarizer.merge(example.multivariable) %>% 
-	summarizer.merge(example.multilevel) %>% 
-	select(-c(glm.id, index)) -> example.final
+  summarizer.merge(example.univariable) %>% 
+  summarizer.merge(example.multivariable) %>% 
+  summarizer.merge(example.multilevel) %>% 
+  select(-c(glm.id, index)) -> example.final
 example.final
+
 ```
 
 Note wrapper `summary.missing` can be useful.
 
 ``` r
-data %>%
+colon_s %>%
   summary.missing(dependent, explanatory)
 ```
 
@@ -137,7 +144,7 @@ Models can be summarized with odds ratio/hazard ratio plots using `or.plot`.
 
 ``` r
 # OR plot
-data %>%
+colon_s %>%
   or.plot(dependent, explanatory)
 ```
 
