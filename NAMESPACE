@@ -1,2 +1,2 @@
-import(Hmisc)
 exportPattern("^[[:alpha:]]+")
+importFrom(Hmisc, label)
