@@ -8,3 +8,5 @@ Description: Summary functions and easily exportable tables for frontline R user
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports:
+    Hmisc
