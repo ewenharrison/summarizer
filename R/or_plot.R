@@ -24,8 +24,15 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	# Remove unwanted lines, where there are more variables in model than wish to display.
 	# Note merge function in summarizer merge is now `all` rather than `all.x` as wish to preserve interactions
 	# These not named in factorlist, creating this problem. Interactions don't show on plot.
-	remove_rows = which(is.na(df.out$label))
-	df.out = df.out[-remove_rows,]
+	if (any(
+		is.na(df.out$label)
+	)
+	){
+		remove_rows = which(is.na(df.out$label)) # This row doesn't work when is.na == FALSE, hence if()
+		df.out = df.out[-remove_rows,]
+	} else {
+		df.out
+	}
 
 	# Fix order
 	df.out$levels = as.character(df.out$levels)
