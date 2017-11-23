@@ -1,12 +1,12 @@
 Package: summarizer
 Type: Package
 Title: Summarizer
-Version: 0.3.1
+Version: 0.3.2
 Author: Harrison, Drake, Ots
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: Ewen Harrison <ewen.harrison@ed.ac.uk>
 Description: Summary functions and easily exportable tables for frontline R users.
-License: What license is it under?
+License: Creative Commons
 Encoding: UTF-8
 LazyData: true
-Imports:
+Depends:
     Hmisc
