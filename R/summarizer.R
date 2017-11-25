@@ -1,6 +1,9 @@
 # Needs names/suffix methods updated if working ok
 
 summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random_effect=NULL, metrics=FALSE){
+	if(is.data.frame(df)==FALSE) stop("df is not dataframe")
+	if(is.null(explanatory)) stop("No explanatory variable(s) provided")
+	if(is.null(dependent)) stop("No dependent variable provided")
 
 	# Logistic regression or CPH ----
 	coxfit = grepl("^Surv[(].*[)]", dependent)
@@ -73,8 +76,12 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 		coxphuni.df = fit2df(coxphuni.out, estimate.suffix = " (univariable)")
 
 		# Multivariable/Mixed
-		coxphmulti.out = coxphmulti(df, dependent, explanatory)
-		coxphulti.df = fit2df(coxphmulti.out, estimate.suffix = " (multivariable)") #, metrics=metrics)
+		if (is.null(explanatory.multi)){
+			coxphmulti.out = coxphmulti(df, dependent, explanatory)
+		} else {
+			coxphmulti.out = coxphmulti(df, dependent, explanatory.multi)
+		}
+		coxphmulti.df = fit2df(coxphmulti.out, estimate.suffix = " (multivariable)") #, metrics=metrics)
 
 		# Merge dataframes
 		# Uni
