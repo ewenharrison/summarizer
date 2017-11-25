@@ -210,7 +210,7 @@ Use `Hmisc::label()` to assign labels to variables for tables and plots.
 label(colon_s$age.factor) = "Age (years)"
 ```
 
-Export dataframe tables directly or to Rmarkdown using `knitr::kable()`.
+Export dataframe tables directly or to [R Markdown](http://rmarkdown.rstudio.com) using [`knitr::kable()`](https://yihui.name/knitr/).
 
 Note wrapper `summary.missing()` can be useful. Wraps `mice::md.pattern`.
 
