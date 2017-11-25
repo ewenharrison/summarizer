@@ -26,7 +26,7 @@ Main Features
 
 ### 1. Summarise variables/factors by a categorical variable
 
-`summary.factorlist` is a simple wrapper used to summarise any number of variables by a single categorical variable. 
+`summary.factorlist()` is a simple wrapper used to summarise any number of variables by a single categorical variable. 
 This is usually "Table 1" of a study report. 
 
 ``` r
@@ -44,7 +44,7 @@ colon_s %>%
 
 ```
 
-`summary.factorlist` is also commonly used to summarise any number of variables by an *outcome variable* (say dead yes/no).  
+`summary.factorlist()` is also commonly used to summarise any number of variables by an *outcome variable* (say dead yes/no).  
 
 ``` r
 # Table 2 - Mortality ----
@@ -56,13 +56,13 @@ colon_s %>%
 
 ### 2. Summarise regression model results in final table format
 
-The second main feature is the ability to create final tables for logistic (`glm`), hierarchical logistic (`lme4::glmer`) and 
-Cox proprotional hazard (`survival::coxph`) regression models.
+The second main feature is the ability to create final tables for logistic (`glm()`), hierarchical logistic (`lme4::glmer()`) and 
+Cox proprotional hazard (`survival::coxph()`) regression models.
 
-The `summarizer` takes a single dependent variable with a vector of explanatory variable names 
+The `summarizer()` function takes a single dependent variable with a vector of explanatory variable names 
 (continuous or categorical variables) to produce a final table for publication including summary statistics, 
 univariable and multivariable logistic regression analyses. The first columns are those produced by 
-`summary.factorist`. 
+`summary.factorist()`. 
 
 `glm(depdendent ~ explanatory, family="binomial")`
 
@@ -115,7 +115,7 @@ colon_s %>%
 	summarizer(dependent, explanatory)
 ```
 
-Any number of subset models can be manually added on to a `summary.factorlist` table using `summarizer.merge`. 
+Any number of subset models can be manually added on to a `summary.factorlist()` table using `summarizer.merge()`. 
 Note requirement for `glm.id=TRUE`. `fit2df` is a subfunction extracting most common models to a dataframe. 
 
 
@@ -152,7 +152,7 @@ example.final
 
 ```
 
-Cox Proportional Hazards example with separate tables merged together
+Cox Proportional Hazards example with separate tables merged together.
 
 ``` r
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -179,13 +179,6 @@ example2.summary %>%
 example2.final
 ```
 
-Note wrapper `summary.missing` can be useful.
-
-``` r
-colon_s %>%
-  summary.missing(dependent, explanatory)
-```
-
 ### 3. Summarise regression model results in plot
 
 Models can be summarized with odds ratio/hazard ratio plots using `or.plot` or `hr.plot` (hr.plot not fully tested). 
@@ -206,4 +199,21 @@ colon_s %>%
 # Previously fitted models (`coxphmulti`) can be provided directly using `coxfit`
 ```
 
-. `Rstan` models are also supported. 
+`Rstan` models are also supported. 
+
+### Notes
+
+Use `Hmisc::label()` to assign labels to variables for tables and plots.
+
+``` r
+label(colon_s$age.factor) = "Age (years)"
+```
+
+Export dataframe tables directly or to Rmarkdown using `knitr::kable()`.
+
+Note wrapper `summary.missing()` can be useful. Wraps `mice::md.pattern`.
+
+``` r
+colon_s %>%
+  summary.missing(dependent, explanatory)
+```
