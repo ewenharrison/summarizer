@@ -47,7 +47,7 @@ colon_s %>%
 `summary.factorlist()` is also commonly used to summarise any number of variables by an *outcome variable* (say dead yes/no).  
 
 ``` r
-# Table 2 - Mortality ----
+# Table 2 - 5 yr mortality ----
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = 'mort_5yr'
 colon_s %>%
@@ -56,8 +56,8 @@ colon_s %>%
 
 ### 2. Summarise regression model results in final table format
 
-The second main feature is the ability to create final tables for logistic (`glm()`), hierarchical logistic (`lme4::glmer()`) and 
-Cox proprotional hazard (`survival::coxph()`) regression models.
+The second main feature is the ability to create final tables for logistic `glm()`, hierarchical logistic `lme4::glmer()` and 
+Cox proprotional hazard `survival::coxph()` regression models.
 
 The `summarizer()` function takes a single dependent variable with a vector of explanatory variable names 
 (continuous or categorical variables) to produce a final table for publication including summary statistics, 
