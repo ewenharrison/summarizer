@@ -200,7 +200,7 @@ colon_s %>%
 # Previously fitted models (`coxphmulti`) can be provided directly using `coxfit`
 ```
 
-`Rstan` models are also supported. 
+Our own particular `Rstan` models are supported and will be documented in the future. Broadly, if you are running (hierarchical) logistic regression models where coefficients are a vector labelled `beta`, then `fit2df()` will work directly on the `stanfit` object in a similar manner to if it was a `glm` or `glmerMod` object. 
 
 ### Notes
 
