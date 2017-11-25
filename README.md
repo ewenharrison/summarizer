@@ -94,6 +94,21 @@ colon_s %>%
 
 `metrics=TRUE` provides common model metrics. 
 
+``` r
+colon_s %>%
+  summarizer(dependent, explanatory, explanatory.multi,  metrics=TRUE)
+```
+
+Cox proportional hazards `survival::coxph`
+
+``` r
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = "Surv(time, status)"
+
+colon_s %>% 
+	summarizer(dependent, explanatory)
+```
+
 Any number of subset models can be manually added on to a `summary.factorlist` table using `summarizer.merge`. 
 Note requirement for `glm.id=TRUE`. `fit2df` is a subfunction extracting most common models to a dataframe. 
 
@@ -129,6 +144,33 @@ example.summary %>%
   select(-c(glm.id, index)) -> example.final
 example.final
 
+```
+
+Cox Proportional Hazards example with separate tables merged together
+
+``` r
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+explanatory.multi = c("age.factor", "obstruct.factor")
+dependent = "Surv(time, status)"
+
+# Separate tables
+colon_s %>%
+	summary.factorlist(dependent, explanatory, glm.id=TRUE) -> example2.summary
+
+colon_s %>%
+	coxphuni(dependent, explanatory) %>%
+	fit2df(estimate.suffix=" (univariable)") -> example2.univariable
+
+colon_s %>%
+  coxphmulti(dependent, explanatory.multi) %>%
+  fit2df(estimate.suffix=" (multivariable)") -> example2.multivariable
+
+# Pipe together
+example2.summary %>% 
+	summarizer.merge(example2.univariable) %>% 
+	summarizer.merge(example2.multivariable) %>% 
+	select(-c(glm.id, index)) -> example2.final
+example2.final
 ```
 
 Note wrapper `summary.missing` can be useful.
