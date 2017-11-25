@@ -188,12 +188,22 @@ colon_s %>%
 
 ### 3. Summarise regression model results in plot
 
-Models can be summarized with odds ratio/hazard ratio plots using `or.plot`. 
+Models can be summarized with odds ratio/hazard ratio plots using `or.plot` or `hr.plot` (hr.plot not fully tested). 
 
 ``` r
 # OR plot
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = 'mort_5yr'
 colon_s %>%
   or.plot(dependent, explanatory)
+# Previously fitted models (`glmmulti`) can be provided directly to `glmfit`  
+  
+# HR plot (not fully tested)
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = "Surv(time, status)"
+colon_s %>%
+  hr.plot(dependent, explanatory, dependent_label = "Survival")
+# Previously fitted models (`coxphmulti`) can be provided directly using `coxfit`
 ```
 
-Previously fitted models can be provided directly using `glmfit`. `Rstan` models are also supported. 
+. `Rstan` models are also supported. 
