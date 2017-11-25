@@ -59,7 +59,7 @@ colon_s %>%
 The second main feature is the ability to create final tables for logistic `glm()`, hierarchical logistic `lme4::glmer()` and 
 Cox proprotional hazard `survival::coxph()` regression models.
 
-The `summarizer()` function takes a single dependent variable with a vector of explanatory variable names 
+The `summarizer()` "all-in-one" function takes a single dependent variable with a vector of explanatory variable names 
 (continuous or categorical variables) to produce a final table for publication including summary statistics, 
 univariable and multivariable regression analyses. The first columns are those produced by 
 `summary.factorist()`. 
@@ -115,7 +115,8 @@ colon_s %>%
 	summarizer(dependent, explanatory)
 ```
 
-Any number of subset models can be manually added on to a `summary.factorlist()` table using `summarizer.merge()`. 
+Rather than going all-in-one, any number of subset models can be manually added on to a `summary.factorlist()` table using `summarizer.merge()`. This is particularly useful when models take a long-time to run or are complicated. 
+
 Note requirement for `glm.id=TRUE`. `fit2df` is a subfunction extracting most common models to a dataframe. 
 
 
