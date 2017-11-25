@@ -15,6 +15,7 @@ external.packages:
     ggplot2
     gridExtra
     stringr
+    lme4
 local.repos: 
 load.external.packages.on.startup: TRUE
 ignored.packages: 
