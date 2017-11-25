@@ -1,4 +1,4 @@
-hr.plot = function(df, dependent, explanatory, dependent_label = NULL, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5), ...){
+hr.plot = function(df, dependent, explanatory, dependent_label = NULL, factorlist=NULL, coxfit=NULL, column_space=c(-0.5, 0, 0.5), ...){
 	require(ggplot2)
 	require(scales)
 	# Generate or format factorlist object
@@ -11,7 +11,7 @@ hr.plot = function(df, dependent, explanatory, dependent_label = NULL, factorlis
 	factorlist$all = NULL
 
 	# Generate or format glm
-	if(is.null(glmfit)){
+	if(is.null(coxfit)){
 		coxfit = coxphmulti(df, dependent, explanatory)
 	}
 	df_fit_c = fit2df(coxfit, condense = TRUE, estimate.suffix = " (multivariable)", ...)
