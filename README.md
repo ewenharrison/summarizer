@@ -61,7 +61,7 @@ Cox proprotional hazard `survival::coxph()` regression models.
 
 The `summarizer()` function takes a single dependent variable with a vector of explanatory variable names 
 (continuous or categorical variables) to produce a final table for publication including summary statistics, 
-univariable and multivariable logistic regression analyses. The first columns are those produced by 
+univariable and multivariable regression analyses. The first columns are those produced by 
 `summary.factorist()`. 
 
 `glm(depdendent ~ explanatory, family="binomial")`
