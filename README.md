@@ -63,6 +63,7 @@ The `summarizer` takes a single dependent variable with a vector of explanatory 
 (continuous or categorical variables) to produce a final table for publication including summary statistics, 
 univariable and multivariable logistic regression analyses. The first columns are those produced by 
 `summary.factorist`. 
+`glm(depdendent ~ explanatory, family="binomial")`
 
 ``` r
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -81,7 +82,8 @@ colon_s %>%
   summarizer(dependent, explanatory, explanatory.multi)
 ```
 
-Random effects.
+Random effects. 
+`lme4::glmer(dependent ~ explanatory + (1 | random_effect), family="binomial")`
 
 ``` r
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -99,7 +101,8 @@ colon_s %>%
   summarizer(dependent, explanatory, explanatory.multi,  metrics=TRUE)
 ```
 
-Cox proportional hazards `survival::coxph`
+Cox proportional hazards 
+`survival::coxph(dependent ~ explanatory)`
 
 ``` r
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
