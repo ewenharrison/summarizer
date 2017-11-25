@@ -33,7 +33,7 @@ This is usually "Table 1" of a study report.
 library(summarizer)
 library(tidyverse)
 
-# Load dataset
+# Load example dataset, modified version of survival::colon
 data(colon_s)
 
 # Table 1 - Patient demographics ----
