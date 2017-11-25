@@ -9,6 +9,13 @@ summary.factorlist <- function(df, dependent=NULL, explanatory, cont="mean", p=F
 		df$all = factor(1, label="all")
 	}
 
+	# Extract dependent variable
+	d.variable = df[,names(df) %in% dependent]
+
+	if(length(d.variable)==0){
+		stop("Dependent variable length is 0")
+	}
+
 	args = list(df=df, dependent=dependent, explanatory=explanatory, cont=cont, p=p, na.include=na.include,
 							column=column, total_col=total_col, orderbytotal=orderbytotal, glm.id=glm.id,
 							na.to.missing=na.to.missing)
@@ -23,9 +30,6 @@ summary.factorlist <- function(df, dependent=NULL, explanatory, cont="mean", p=F
 			do.call(summary.factorlist1, args=list(df=df, dependent = "all",  explanatory=explanatory))
 		)
 	} else {
-
-		# Extract dependent variable
-		d.variable = df[,names(df) %in% dependent]
 
 		# Logical is.factor
 		d.isfactor = is.factor(d.variable) |
