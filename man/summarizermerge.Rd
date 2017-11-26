@@ -2,7 +2,7 @@
 \alias{summarizer.merge}
 \title{Merge a summary.factorlist() table with any number of glm / coxph model tables.}
 \usage{
-summarizer.merge = function(factorlist, glm.df, ref.symbol = "-"){
+summarizer.merge = function(factorlist, glm.df, ref.symbol = "-")
 }
 \description{
 A function that takes the output from \code{summary.factorlist(..., glm.id=TRUE)} and merges with any number of model dataframes, usually produced with a model wrapper followed by \code{fit2df()} function (see examples).
@@ -45,5 +45,4 @@ example.summary \%>\%
   summarizer.merge(example.multilevel) \%>\%
   select(-c(glm.id, index)) -> example.final
 example.final
-
 }

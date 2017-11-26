@@ -11,7 +11,7 @@ Produce an odds ratio table and plot from a \code{glm()} or \code{lme4::glmer()}
 \item{df}{Dataframe}
 \item{dependent}{Character vector of length 1:  name of depdendent variable (must have 2 factor levels)}
 \item{explanatory}{Character vector of any length: name(s) of explanatory variables}
-\item{factorlist}{Option to provide output directly from \code{summary.factorlist()}
+\item{factorlist}{Option to provide output directly from \code{summary.factorlist()}}
 \item{glmfit}{Option to provide output directly from \code{glmmulti()}}
 \item{column_space}{Adjust table column spacing}
 }

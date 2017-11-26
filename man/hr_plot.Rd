@@ -16,7 +16,6 @@ Produce hazard ratio table and plot from a Cox Proportional Hazards analysis, \c
 \item{coxfit}{Option to provide output directly from \code{coxphmulti()}}
 \item{column_space}{Adjust table column spacing}
 }
-}
 
 \examples{
 # HR plot
@@ -26,3 +25,4 @@ dependent = "Surv(time, status)"
 colon_s \%>\%
   hr.plot(dependent, explanatory, dependent_label = "Survival")
 # Previously fitted models (`coxphmulti`) can be provided directly using `coxfit`
+}
