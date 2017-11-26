@@ -33,7 +33,7 @@ This is usually "Table 1" of a study report.
 library(summarizer)
 library(tidyverse)
 
-# Load dataset
+# Load example dataset, modified version of survival::colon
 data(colon_s)
 
 # Table 1 - Patient demographics ----
@@ -47,7 +47,7 @@ colon_s %>%
 `summary.factorlist()` is also commonly used to summarise any number of variables by an *outcome variable* (say dead yes/no).  
 
 ``` r
-# Table 2 - Mortality ----
+# Table 2 - 5 yr mortality ----
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = 'mort_5yr'
 colon_s %>%
@@ -56,12 +56,12 @@ colon_s %>%
 
 ### 2. Summarise regression model results in final table format
 
-The second main feature is the ability to create final tables for logistic (`glm()`), hierarchical logistic (`lme4::glmer()`) and 
-Cox proprotional hazard (`survival::coxph()`) regression models.
+The second main feature is the ability to create final tables for logistic `glm()`, hierarchical logistic `lme4::glmer()` and 
+Cox proprotional hazard `survival::coxph()` regression models.
 
-The `summarizer()` function takes a single dependent variable with a vector of explanatory variable names 
+The `summarizer()` "all-in-one" function takes a single dependent variable with a vector of explanatory variable names 
 (continuous or categorical variables) to produce a final table for publication including summary statistics, 
-univariable and multivariable logistic regression analyses. The first columns are those produced by 
+univariable and multivariable regression analyses. The first columns are those produced by 
 `summary.factorist()`. 
 
 `glm(depdendent ~ explanatory, family="binomial")`
@@ -115,7 +115,8 @@ colon_s %>%
 	summarizer(dependent, explanatory)
 ```
 
-Any number of subset models can be manually added on to a `summary.factorlist()` table using `summarizer.merge()`. 
+Rather than going all-in-one, any number of subset models can be manually added on to a `summary.factorlist()` table using `summarizer.merge()`. This is particularly useful when models take a long-time to run or are complicated. 
+
 Note requirement for `glm.id=TRUE`. `fit2df` is a subfunction extracting most common models to a dataframe. 
 
 
@@ -199,7 +200,7 @@ colon_s %>%
 # Previously fitted models (`coxphmulti`) can be provided directly using `coxfit`
 ```
 
-`Rstan` models are also supported. 
+Our own particular `Rstan` models are supported and will be documented in the future. Broadly, if you are running (hierarchical) logistic regression models in [Stan](http://mc-stan.org/users/interfaces/rstan) with coefficients specified as a vector labelled `beta`, then `fit2df()` will work directly on the `stanfit` object in a similar manner to if it was a `glm` or `glmerMod` object. 
 
 ### Notes
 
@@ -209,7 +210,7 @@ Use `Hmisc::label()` to assign labels to variables for tables and plots.
 label(colon_s$age.factor) = "Age (years)"
 ```
 
-Export dataframe tables directly or to Rmarkdown using `knitr::kable()`.
+Export dataframe tables directly or to [R Markdown](http://rmarkdown.rstudio.com) using [`knitr::kable()`](https://yihui.name/knitr/).
 
 Note wrapper `summary.missing()` can be useful. Wraps `mice::md.pattern`.
 
