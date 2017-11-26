@@ -7,7 +7,7 @@ summary.factorlist(df, dependent, explanatory, cont=c("mean","median"),
 	orderbytotal=FALSE, glm.id=FALSE, na.to.missing = TRUE)
 }
 \description{
-A function that takes a single dependent variable with a vector of explanatory variable names (continuous or categorical variables) to produce summary table.
+A function that takes a single dependent variable with a vector of explanatory variable names (continuous or categorical variables) to produce a summary table.
 }
 \arguments{
 \item{df}{Dataframe}
@@ -23,10 +23,25 @@ A function that takes a single dependent variable with a vector of explanatory v
 \item{na.to.missing}{Logical: convert \code{NA} to 'Missing' when \code{na.include=TRUE}}
 }
 \examples{
-explanatory = c('ssi_yn.factor', 'ssi_yn.collapsed', 'abcess_yn.factor',
-	'reintervention_yn.factor', 'mort30.factor', 'los')
-out.sum = summary.factorlist(data_gs2, 'hdi_tertile', explanatory,
-	cont = "median", p = TRUE, na.include = TRUE, column = TRUE)
-out.sum = rm_duplicate_labels(out.sum, na.to.missing = TRUE)
-out.sum
+# summary.factorlist() wraps `Hmisc::summary.formula` to summarise any number of variables by a single categorical variable. This is usually "Table 1" of a study report.
+
+library(summarizer)
+library(tidyverse)
+
+# Load example dataset, modified version of survival::colon
+data(colon_s)
+
+# Table 1 - Patient demographics ----
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s \%>\%
+  summary.factorlist(dependent, explanatory, p=T)
+
+# summary.factorlist() is also commonly used to summarise any number of variables by an outcome variable (say dead yes/no).
+
+# Table 2 - 5 yr mortality ----
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = 'mort_5yr'
+colon_s \%>\%
+  summary.factorlist(dependent, explanatory)
 }

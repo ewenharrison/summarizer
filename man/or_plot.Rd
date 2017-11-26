@@ -5,16 +5,23 @@
 or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5))
 }
 \description{
-Produce odds ratio table and plot.
+Produce an odds ratio table and plot from a \code{glm()} or \code{lme4::glmer()} model.
 }
 \arguments{
 \item{df}{Dataframe}
 \item{dependent}{Character vector of length 1:  name of depdendent variable (must have 2 factor levels)}
 \item{explanatory}{Character vector of any length: name(s) of explanatory variables}
+\item{factorlist}{Option to provide output directly from \code{summary.factorlist()}
+\item{glmfit}{Option to provide output directly from \code{glmmulti()}}
+\item{column_space}{Adjust table column spacing}
 }
 
 \examples{
-dependent = "ssi_yn.collapsed"
-explanatory = c('hdi_tertile', 'age_centred', 'asa.1', 'smoker.2')
-or.plot(data_gs2, dependent, explanatory)
+# OR plot
+data(colon_s)
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = 'mort_5yr'
+colon_s \%>\%
+  or.plot(dependent, explanatory)
+# Previously fitted models (`glmmulti`) can be provided directly to `glmfit`
 }
