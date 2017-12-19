@@ -90,7 +90,7 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 				lmmulti.out = lmmulti(df, dependent, explanatory.multi)
 			}
 			lmmulti.df = fit2df(lmmulti.out, metrics=metrics, estimate.suffix = " (multivariable)")
-		} else if (is.null(random_effect) == FALSE){
+		} else if (!is.null(random_effect)){
 			if (is.null(explanatory.multi)){
 				lmmulti.out = lmmixed(df, dependent, explanatory, random_effect)
 			} else {
@@ -113,6 +113,7 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 		# Label interactions
 		na.label = which(is.na(df.out$label))
 		df.out$label[na.label] = df.out$glm.id[na.label]
+		df.out$levels = as.character(df.out$levels)
 		df.out$levels[na.label] = "Interaction"
 
 		# Tidy up
@@ -174,9 +175,7 @@ summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random
 		# Label interactions
 		na.label = which(is.na(df.out$label))
 		df.out$label[na.label] = df.out$glm.id[na.label]
-		suppressWarnings(
-			df.out$levels[na.label] = "Interaction"
-		)
+		df.out$levels[na.label] = "Interaction"
 
 		# Tidy up
 		index_glm.id = which(names(df.out)=="glm.id")
