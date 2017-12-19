@@ -23,7 +23,8 @@ A function that takes a single dependent variable with a vector of explanatory v
 \item{na.to.missing}{Logical: convert \code{NA} to 'Missing' when \code{na.include=TRUE}}
 }
 \examples{
-# summary.factorlist() wraps `Hmisc::summary.formula` to summarise any number of variables by a single categorical variable. This is usually "Table 1" of a study report.
+# summary.factorlist() wraps `Hmisc::summary.formula` to summarise any number of variables by a single categorical
+# variable. This is usually "Table 1" of a study report.
 
 library(summarizer)
 library(tidyverse)

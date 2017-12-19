@@ -84,7 +84,7 @@ summary.factorlist1 <- function(df, dependent, explanatory,  cont="mean", p=FALS
 	}
 
 	# Remove
-	if (glm.id == FALSE) {
+	if (!glm.id) {
 		index_index = which(names(df.out.labels) == "index")
 	}else{
 		index_index = 0

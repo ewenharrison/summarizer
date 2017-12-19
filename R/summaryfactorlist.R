@@ -2,6 +2,7 @@ summary.factorlist <- function(df, dependent=NULL, explanatory, cont="mean", p=F
 															 column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE,
 															 na.to.missing = TRUE){
 	if(is.data.frame(df)==FALSE) stop("df is not dataframe")
+	if(any(class(df) %in% c("tbl_df", "tbl"))) df = data.frame(df) # tbl work different, convert to data.frame
 	if(is.null(explanatory)) stop("No explanatory variable(s) provided")
 	if(is.null(dependent)){
 		warning("No dependent variable(s) provided; defaulting to single-level factor")
