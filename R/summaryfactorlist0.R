@@ -3,7 +3,7 @@ summary.factorlist0 <- function(df, dependent, explanatory,  cont="mean", p=FALS
 															 column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE,
 																na.to.missing = TRUE){
 
-	s = Hmisc::summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
+	s = Hmisc:::summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
 															overall=FALSE, method="response", na.include=na.include,
 															fun=function(x) {
 																mean = mean(x)
