@@ -16,6 +16,7 @@ external.packages:
     gridExtra
     stringr
     lme4
+    survminer
 local.repos: 
 load.external.packages.on.startup: TRUE
 ignored.packages: 
