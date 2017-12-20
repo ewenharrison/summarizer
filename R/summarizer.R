@@ -1,6 +1,4 @@
-# Needs names/suffix methods updated if working ok
-
-summarizer.test = function(df, dependent, explanatory, explanatory.multi=NULL, random_effect=NULL, metrics=FALSE){
+summarizer = function(df, dependent, explanatory, explanatory.multi=NULL, random_effect=NULL, metrics=FALSE){
 	if(is.data.frame(df)==FALSE) stop("df is not dataframe")
 	if(is.null(explanatory)) stop("No explanatory variable(s) provided")
 	if(is.null(dependent)) stop("No dependent variable provided")
