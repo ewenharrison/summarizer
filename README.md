@@ -15,10 +15,10 @@ devtools::install_github("ewenharrison/summarizer")
 ```
 
 It is not a dependent, but it is recommended that this package is used together with 
-[the tidyverse package](http://blog.revolutionanalytics.com/2016/09/tidyverse.html) which can be installed via:
+`dplyr` which can be installed via:
 
 ``` r
-install.packages("tidyverse")
+install.packages("dplyr")
 ```
 
 Main Features
@@ -31,7 +31,7 @@ This is usually "Table 1" of a study report.
 
 ``` r
 library(summarizer)
-library(tidyverse)
+library(dplyr)
 
 # Load example dataset, modified version of survival::colon
 data(colon_s)
