@@ -1,7 +1,7 @@
 summary.factorlist5 <- function(df, dependent, explanatory, cont="mean", p=FALSE, na.include=FALSE,
 																column=FALSE, total_col=FALSE, orderbytotal=FALSE, glm.id=FALSE,
 																na.to.missing = TRUE){
-	s <- Hmisc::summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
+	s <- Hmisc:::summary.formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = df,
 											 method="reverse", overall=FALSE,
 											 test=TRUE,na.include=na.include)
 	# Column vs row proportions for factor variables
