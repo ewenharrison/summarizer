@@ -1,9 +1,15 @@
-hr.plot = function(df, dependent, explanatory, dependent_label = NULL, factorlist=NULL, coxfit=NULL, column_space=c(-0.5, 0, 0.5), ...){
+hr.plot = function(df, dependent, explanatory, dependent_label = NULL, factorlist=NULL, coxfit=NULL,
+									 breaks=NULL, column_space=c(-0.5, 0, 0.5), ...){
 	require(ggplot2)
 	require(scales)
 	# Generate or format factorlist object
 	if(is.null(factorlist)){
 		factorlist = summary.factorlist(df, dependent, explanatory, glm.id=TRUE)
+	}
+
+	# Specify breaks if provided
+	if(is.null(breaks)){
+		breaks = pretty_breaks()
 	}
 
 	# Extract totals (this is CPH specific due to how summary.factorlist works)
@@ -47,7 +53,7 @@ hr.plot = function(df, dependent, explanatory, dependent_label = NULL, factorlis
 		geom_point(aes(size = Total), shape=22, fill="darkblue")+
 		geom_errorbarh(height=0.2) +
 		geom_vline(xintercept = 1, linetype = "longdash", colour = "black")+
-		scale_x_continuous(name="Hazard ratio (95% CI, log scale)", trans="log10", breaks= pretty_breaks())+
+		scale_x_continuous(name="Hazard ratio (95% CI, log scale)", trans="log10", breaks= breaks)+
 		theme_classic(14)+
 		theme(axis.title.x = element_text(),
 					axis.title.y = element_blank(),

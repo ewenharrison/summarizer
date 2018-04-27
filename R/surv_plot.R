@@ -1,10 +1,15 @@
-surv.plot = function(df.in, dependent, explanatory, ...){
+surv.plot = function(df, dependent, explanatory, ...){
+	if(length(explanatory)>2){
+		stop("Explanatory must have a maximum of two variables")
+	}
+
 	args = list(...)
 	args$fit = survival::survfit(
-		as.formula(paste0(dependent, "~", paste(explanatory, collapse="+"))), data=df.in)
-	args$data=df.in
+		as.formula(paste0(dependent, "~", paste(explanatory, collapse="+"))), data=df)
+	args$data=df
 
 	# Defaults which can be modified via ...
+	if (is.null(args$xlab)) args$ylab="Time"
 	if (is.null(args$ylab)) args$ylab="Probability"
 	if (is.null(args$conf.int)) args$conf.int=FALSE
 	if (is.null(args$risk.table)) args$risk.table=TRUE

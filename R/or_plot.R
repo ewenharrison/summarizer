@@ -1,4 +1,5 @@
-or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5), ...){
+or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL,
+									 breaks=NULL, column_space=c(-0.5, 0, 0.5), ...){
 	require(ggplot2)
 	require(scales)
 	# Generate or format factorlist object
@@ -13,6 +14,9 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	df_fit_c = fit2df(glmfit, condense = TRUE, ...)
 	df_fit = fit2df(glmfit, condense = FALSE, ...)
 
+	if(is.null(breaks)){
+		breaks = pretty_breaks()
+	}
 	# Merge
 	df.out = summarizer.merge(factorlist, df_fit_c)
 	names(df.out)[which(names(df.out) %in% "OR")] = "OR (multivariate)"
@@ -44,7 +48,7 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 		geom_point(aes(size = Total), shape=22, fill="darkblue")+
 		geom_errorbarh(height=0.2) +
 		geom_vline(xintercept = 1, linetype = "longdash", colour = "black")+
-		scale_x_continuous(name="Odds ratio (95% CI, log scale)", trans="log10", breaks= pretty_breaks())+
+		scale_x_continuous(name="Odds ratio (95% CI, log scale)", trans="log10", breaks= breaks)+
 		theme_classic(14)+
 		theme(axis.title.x = element_text(),
 					axis.title.y = element_blank(),
@@ -74,5 +78,5 @@ or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, col
 	}
 
 	gridExtra::grid.arrange(t1, g1, ncol=2, widths = c(3,2),
-							 top=grid::textGrob(title, x=0.02, y=0.2, gp=grid::gpar(fontsize=18), just="left"))
+													top=grid::textGrob(title, x=0.02, y=0.2, gp=grid::gpar(fontsize=18), just="left"))
 }

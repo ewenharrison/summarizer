@@ -2,7 +2,7 @@
 \alias{or.plot}
 \title{Produce odds ratio table and plot}
 \usage{
-or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, column_space=c(-0.5, 0, 0.5))
+or.plot = function(df, dependent, explanatory, factorlist=NULL, glmfit=NULL, breaks=NULL, column_space=c(-0.5, 0, 0.5))
 }
 \description{
 Produce an odds ratio table and plot from a \code{glm()} or \code{lme4::glmer()} model.
@@ -13,6 +13,7 @@ Produce an odds ratio table and plot from a \code{glm()} or \code{lme4::glmer()}
 \item{explanatory}{Character vector of any length: name(s) of explanatory variables}
 \item{factorlist}{Option to provide output directly from \code{summary.factorlist()}}
 \item{glmfit}{Option to provide output directly from \code{glmmulti()}}
+\item{breaks}{Manually specify x-axis breaks in format \code{c(0.1, 1, 10)}}
 \item{column_space}{Adjust table column spacing}
 }
 
