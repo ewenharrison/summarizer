@@ -21,13 +21,16 @@ It is not a dependent, but it is recommended that this package is used together 
 install.packages("dplyr")
 ```
 
+To install off-line (or in a Safe Haven), download the zip file and use `devtools::install_local()`.
+
+
 Main Features
 -------------
 
 ### 1. Summarise variables/factors by a categorical variable
 
 `summary.factorlist()` is a simple wrapper used to summarise any number of variables by a single categorical variable. 
-This is usually "Table 1" of a study report. 
+This is usually "Table 1" of a study report. The categorical variable can have a maximum of five levels. 
 
 ``` r
 library(summarizer)
@@ -64,7 +67,7 @@ The `summarizer()` "all-in-one" function takes a single dependent variable with 
 univariable and multivariable regression analyses. The first columns are those produced by 
 `summary.factorist()`. 
 
-`glm(depdendent ~ explanatory, family="binomial")`
+e.g. `glm(depdendent ~ explanatory, family="binomial")`
 
 ``` r
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -85,7 +88,7 @@ colon_s %>%
 
 Random effects. 
 
-`lme4::glmer(dependent ~ explanatory + (1 | random_effect), family="binomial")`
+e.g. `lme4::glmer(dependent ~ explanatory + (1 | random_effect), family="binomial")`
 
 ``` r
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -105,7 +108,7 @@ colon_s %>%
 
 Cox proportional hazards 
 
-`survival::coxph(dependent ~ explanatory)`
+e.g. `survival::coxph(dependent ~ explanatory)`
 
 ``` r
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -190,7 +193,7 @@ explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = 'mort_5yr'
 colon_s %>%
   or.plot(dependent, explanatory)
-# Previously fitted models (`glmmulti`) can be provided directly to `glmfit`  
+# Previously fitted models (`glmmulti()` or `glmmixed()`) can be provided directly to `glmfit`  
   
 # HR plot (not fully tested)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -201,6 +204,18 @@ colon_s %>%
 ```
 
 Our own particular `Rstan` models are supported and will be documented in the future. Broadly, if you are running (hierarchical) logistic regression models in [Stan](http://mc-stan.org/users/interfaces/rstan) with coefficients specified as a vector labelled `beta`, then `fit2df()` will work directly on the `stanfit` object in a similar manner to if it was a `glm` or `glmerMod` object. 
+
+### 4. Kaplan-Meier survival plots
+
+KM plots can be produced using the `library(survminer)` 
+
+``` r
+# KM plot
+explanatory = c("perfor.factor")
+dependent = "Surv(time, status)"
+colon_s %>% 
+  surv.plot(dependent, explanatory, xlab="Time (days)", pval=TRUE, legend="none")
+```
 
 ### Notes
 
