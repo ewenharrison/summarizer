@@ -57,6 +57,11 @@ colon_s %>%
   summary.factorlist(dependent, explanatory)
 ```
 
+Tables can be knitted to PDF, Word or html documents. We do this in RStudio from a .Rmd document. Example chunk:
+```{r, echo = FALSE, results='asis'}
+knitr::kable(example_table, row.names=FALSE, align=c("l", "l", "r", "r", "r"))
+```
+
 ### 2. Summarise regression model results in final table format
 
 The second main feature is the ability to create final tables for logistic `glm()`, hierarchical logistic `lme4::glmer()` and 
